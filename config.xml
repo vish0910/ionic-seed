@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="io.egen.appid" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>App Name here</name>
+<widget id="io.egen.svs" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>up-money</name>
   <description>
-        App Desc here.
+      > Our app will help you set and monitor budget for various categories you spend money on (viz. Food, Clothing, Shelter etc.).
+      > Our app will also help you maintain or build your credit history by indicating which credit-card you should use to maintain a healthy ration between the amount spent and the credit limit of that specific credit card.
+      > It will help you maintain your good credit standing by reminding you to pay your Bills ( Credit card, Utilities, Insurance and Rent) in timely manner.
+      > For all this analysis and convenience, all you have to do is record the daily transactions.
     </description>
-  <author email="kmukkamala@egen.io" href="https://egen.solutions">
-        Egen Solutions
+  <author email="vdoshi@egen.solutions" href="https://egen.solutions">
+        Vishal Doshi
     </author>
   <content src="index.html"/>
   <access origin="*"/>
