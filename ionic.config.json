@@ -1,0 +1,10 @@
+{
+  "name": "App Name here",
+  "app_id": "App id here",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "https://sampleUrl.egen.io/api"
+    }
+  ]
+}

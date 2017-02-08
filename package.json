@@ -1,0 +1,128 @@
+{
+  "name": "app name here",
+  "version": "0.0.0",
+  "description": "Egen Solutions Platform for app name here",
+  "dependencies": {
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-concat": "^2.2.0",
+    "gulp-minify-css": "^0.3.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "*",
+    "inherits": "^2.0.1",
+    "lodash": "^4.17.4",
+    "lru-cache": "^4.0.1",
+    "sigmund": "^1.0.1",
+    "wiredep": "^4.0.0"
+  },
+  "config": {
+    "coverageThreshold": {
+      "branches": 0,
+      "functions": 0,
+      "lines": 0,
+      "statements": 0
+    },
+    "END_POINTS": {
+      "browser": {
+        "API": "https://nexstar.egen.io",
+        "devMode": true
+      },
+      "emulator": {
+        "API": "https://nexstar.egen.io",
+        "devMode": true
+      },
+      "staging": {
+        "API": "https://nexstar.egen.io",
+        "devMode": false
+      }
+    }
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-device",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-statusbar",
+    "ionic-plugin-keyboard",
+    "cordova-plugin-globalization",
+    "cordova-plugin-geolocation",
+    "cordova-plugin-console",
+    "ionic-plugin-deploy",
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-vibration",
+    {
+      "variables": {
+        "SENDER_ID": "507975739624"
+      },
+      "locator": "phonegap-plugin-push"
+    }
+  ],
+  "cordovaPlatforms": [
+    "android",
+    "ios"
+  ],
+  "devDependencies": {
+    "bower": "^1.3.3",
+    "browser-sync": "~2.11.2",
+    "browser-sync-spa": "~1.0.2",
+    "chalk": "^1.1.1",
+    "concat-stream": "~1.5.0",
+    "del": "~1.2.0",
+    "eslint-plugin-angular": "^0.12.0",
+    "gulp": "~3.9.0",
+    "gulp-angular-filesort": "~1.1.1",
+    "gulp-angular-templatecache": "~1.6.0",
+    "gulp-autoprefixer": "~2.3.1",
+    "gulp-csso": "~1.0.0",
+    "gulp-debug": "^2.1.0",
+    "gulp-eslint": "^1.0.0",
+    "gulp-filter": "~2.0.2",
+    "gulp-flatten": "~0.0.4",
+    "gulp-if": "^2.0.0",
+    "gulp-inject": "~1.3.1",
+    "gulp-load-plugins": "~0.10.0",
+    "gulp-minify-html": "~1.0.3",
+    "gulp-ng-annotate": "~1.0.0",
+    "gulp-replace": "~0.5.3",
+    "gulp-rev": "~5.0.0",
+    "gulp-rev-replace": "~0.4.2",
+    "gulp-shell": "^0.5.1",
+    "gulp-size": "~1.2.1",
+    "gulp-sourcemaps": "~1.5.2",
+    "gulp-uglify": "~1.2.0",
+    "gulp-useref": "~1.2.0",
+    "gulp-util": "^3.0.7",
+    "gulp-xml-editor": "^2.2.1",
+    "http-proxy-middleware": "~0.0.5",
+    "karma": "^0.13.9",
+    "karma-chai": "^0.1.0",
+    "karma-chai-sinon": "^0.1.5",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-coverage": "^0.5.2",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-growl-reporter": "^0.1.1",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "karma-ng-html2js-preprocessor": "^0.1.2",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-sinon": "^1.0.4",
+    "karma-threshold-reporter": "^0.1.15",
+    "lodash": "^4.17.4",
+    "main-bower-files": "~2.8.0",
+    "merge-stream": "~0.1.7",
+    "mocha": "^2.2.5",
+    "phantomjs": "^1.9.18",
+    "require-dir": "~0.3.0",
+    "run-sequence": "^1.1.5",
+    "shelljs": "^0.3.0",
+    "sinon": "^1.12.2",
+    "sinon-chai": "^2.6.0",
+    "stream-reduce": "^1.0.3",
+    "through2": "^2.0.0",
+    "uglify-save-license": "~0.4.1",
+    "wrench": "~1.5.8",
+    "yargs": "^3.30.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}

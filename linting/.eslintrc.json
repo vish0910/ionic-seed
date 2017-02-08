@@ -1,0 +1,16 @@
+{
+    "extends": "../.eslintrc",
+    "rules": {
+        "no-defer": 0,
+        "no-module-var": 2,
+        "no-anonymous-fixtures": 2,
+        "no-inconsistent-naming": 2,
+        "no-inconsistent-file-naming": 2,
+        "controller-suffix": 2,
+        "no-conditional-it": 0,
+        "consistent-describe-context": 2,
+        "no-sinon": [1, ["mock"], "stub"],
+        "indent": [2, 4, {"SwitchCase": 1}]
+    }
+}
+

@@ -1,0 +1,108 @@
+$font-normal: normal;
+$font-thin: 300;
+$font-heavy: 900;
+
+$brand-primary: #145486;
+$brand-orangeish: #F67F45;
+$brand-blue: #008BD2;
+$brand-stable: #E6E6E6;
+$brand-secondary: rgba(255,255,255,0.4);
+
+$blue-dark: #0f73c6;
+$blue: #207ee1;
+$blue-light: #c7e0fa;
+
+$brand-green: #21b118;
+$brand-red: #ff4900;
+$brand-yellow: #ffeb3b;
+
+$brand-success: #70d298;
+$brand-warning: #fff386;
+$brand-danger: #ff7b46;
+$brand-info: #c7e0fa;
+
+$brand-people: #F77601;
+$brand-strategy: #039FD0;
+$brand-execution: #613333;
+$brand-cash: #689B34;
+
+$gray: #7b7b7b;
+$gray-light: #eeeeee;
+$gray-lighter: #c3c3c3;
+$gray-lightest: #f8f8f8;
+$gray-dark: #464646;
+$white: #ffffff;
+$black: #000000;
+
+$transparent: rgba(0,0,0,0);
+$transparent-dark: rgba(0,0,0,0.7);
+
+
+.dark-bg {
+  background: $black;
+}
+
+.text-primary {
+    color: $brand-primary !important;
+}
+.text-gray {
+    color: $gray !important;
+}
+.text-default {
+    color: $gray-light !important;
+}
+.text-lightest {
+    color: $gray-lightest !important;
+}
+.brand-success {
+    color: $brand-success;
+}
+.brand-warning {
+    color: $brand-warning;
+}
+.brand-danger {
+    color: $brand-danger;
+}
+.brand-primary {
+    background-color: $brand-primary;
+}
+.blue-dark {
+    background-color: $blue-dark;
+}
+.blue {
+    background-color: $blue;
+}
+.blue-light {
+    background-color: $blue-light;
+}
+.brand-green {
+    background-color: $brand-green;
+}
+.brand-red {
+    background-color: $brand-red;
+}
+.brand-yellow {
+    background-color: $brand-yellow
+}
+.brand-success {
+    background-color: $brand-success;
+}
+.brand-warning {
+    background-color: $brand-warning;
+}
+.brand-danger {
+    background-color: $brand-danger;
+}
+.gray {
+    background-color: $gray;
+}
+.gray-light {
+    background-color: $gray-light;
+}
+.gray-lighter {
+    background-color: $gray-lighter;
+}
+.gray-lightest {
+    background-color: $gray-lightest;
+}
+

@@ -1,0 +1,13 @@
+@mixin center-elem($left, $top) {
+    position: relative;
+    top: $top;
+    left: $left;
+    transform: translate(-$left, -$top);
+}
+
+
+@mixin round-image($height, $width) {
+    height: $height;
+    width: $width;
+    border-radius: 50%;
+}

@@ -1,0 +1,24 @@
+google api key : 
+sender id: 
+generate keystore: keytool -genkey -v -keystore nexstar.keystore -alias nexstar -keyalg RSA -keysize 2048 -validity 10000
+
+steps to build android :
+
+1. cordova build --release android
+2. jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ./nexstar.keystore ./platforms/android/build/outputs/apk/android-release-unsigned.apk nexstar
+3. ~/Library/Android/sdk/build-tools/23.0.3/zipalign -v 4 ./platforms/android/build/outputs/apk/android-release-unsigned.apk nexstar.apk
+
+
+
+steps for new project:
+
+1. create ios bundle id and replace it config.xml
+2. create ios dev profile
+3. create ios dist profile
+4. update config xml with app name
+5. add ios platform or re-add if app name changed
+6. create app on ionic cloud
+7. add app id in the code everwhere
+8. create app in firebase and get the FCM code
+9. add keys, keystores, provisioning profiles, p12 files to ionic dashboard and save
+10. Test notifications.

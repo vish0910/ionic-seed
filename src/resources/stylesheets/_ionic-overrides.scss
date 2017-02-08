@@ -1,0 +1,17 @@
+// ionic overrides
+
+$bar-dark-bg: $brand-primary !default;
+$tabs-dark-bg: $brand-primary !default;
+$button-dark-active-bg: $brand-primary !default;
+$button-dark-active-border: $brand-primary !default;
+$button-dark-border: $brand-primary !default;
+$dark: $brand-primary !default;
+$bar-dark-border: $brand-primary !default;
+$positive: $brand-blue !default;
+$font-family-sans-serif : 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$ionicons-font-path: "../fonts" !default;
+$input-color-placeholder: $gray !default;
+
+* {
+    font-family: 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif
+}
