@@ -1,35 +1,42 @@
 <ion-view cache-view="false" view-title="Add Transaction">
-    <ion-content scroll="true">
+    <ion-content scroll="false">
         <form name="addTransactionForm">
-        <div class="list">
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Amount ($)</span>
-                <input type="number" ng-model="addTransactionVm.formValues.amount" required>
-            </label>
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Description</span>
-                <input type="text" ng-model="addTransactionVm.formValues.description" required>
-            </label>
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    Category
-                </div>
-                <select ng-model="addTransactionVm.formValues.category" required>
-                    <option ng-repeat="category in addTransactionVm.categories.options" value="category">{{category}}</option>
-                </select>
-            </label>
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    Credit Card
-                </div>
-                <select  ng-model="addTransactionVm.formValues.card" required>
-                    <option ng-repeat="card in addTransactionVm.cards.options" value="creditcard">{{card}}</option>
-                </select>
-            </label>
-            <button class="button button-full button-positive"  ng-disabled="addTransactionForm.$invalid" ng-click="addTransactionVm.addTransaction(addTransactionVm.formValues)">
-                Submit
-            </button>
-        </div>
+            <div class="list">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Amount ($)</span>
+                    <input type="number"
+                           ng-model="addTransactionVm.formValues.amount" required>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Description</span>
+                    <input type="text"
+                           ng-model="addTransactionVm.formValues.description" required>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Date</span>
+                    <input type="date"
+                           ng-model="addTransactionVm.formValues.date" required>
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Category
+                    </div>
+                    <select ng-model="addTransactionVm.formValues.category" required
+                            ng-options="category for category in addTransactionVm.categories.options"></select>
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Credit Card
+                    </div>
+                    <select ng-model="addTransactionVm.formValues.card" required
+                            ng-options="card for card in addTransactionVm.cards.options"></select>
+                </label>
+                <button class="button button-full button-positive"
+                        ng-disabled="addTransactionForm.$invalid"
+                        ng-click="addTransactionVm.addTransaction(addTransactionVm.formValues)">
+                    Submit
+                </button>
+            </div>
         </form>
     </ion-content>
 </ion-view>

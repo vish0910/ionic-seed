@@ -4,7 +4,13 @@
         .module('app.transactions')
         .controller('TransactionsController', TransactionsController);
 
-    function TransactionsController () {
-        var transactionsVm = this;
+    function TransactionsController(svsGetDataService) {
+        var vm = this;
+        init();
+
+        function init() {
+            vm.data = svsGetDataService.getTransaction();
+        }
+
     }
-} (angular));
+}(angular));

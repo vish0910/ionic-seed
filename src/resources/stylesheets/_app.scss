@@ -2,7 +2,7 @@
 
 }
 
-.transactions-page {
+.transactions-page, .reminder-page {
     .svs-grid {
         .svs-item {
             .no-left-margin {
@@ -12,6 +12,9 @@
             border: 1px solid black;
             .amount {
                 font-size: 200%;
+            }
+            .date {
+                font-size: 150%;
             }
         }
         .dark-item {

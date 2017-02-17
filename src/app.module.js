@@ -26,6 +26,10 @@
         'app.reminders',
         'app.settings',
         'app.transactions',
+        'app.sideUtilities',
+        'app.sideUser',
+        'app.sideCategories',
+        'app.sideCards',
         // components
         'svs.svsGrid',
         'svs.svsInfoCard',
@@ -73,10 +77,6 @@
                 url: '/app',
                 abstract: true,
                 template: '<ion-nav-view class="app" name="appView"></ion-nav-view>'
-            })
-            .state('music', {
-                url: '/music',
-                template: '<h1>music.html</h1>'
             });
 
         $urlRouterProvider.otherwise(function ($injector, $location) {

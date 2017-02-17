@@ -5,16 +5,12 @@
         .controller('CategoriesController', CategoriesController);
 
     function CategoriesController(svsGetDataService) {
-        var catagoriesVm = this;
+        var categoriesVm = this;
 
         init();
 
         function init() {
-            catagoriesVm.data = getCategoriesData();
-        }
-
-        function getCategoriesData() {
-            return svsGetDataService.getData('CATEGORIES');
+            categoriesVm.data = svsGetDataService.getCategoriesData();
         }
     }
 }(angular));

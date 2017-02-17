@@ -10,11 +10,7 @@
         init();
 
         function init (){
-            creditcardsVm.data = getData('CREDIT_CARDS');
-        }
-
-        function getData(type){
-            return svsGetDataService.getData(type);
+            creditcardsVm.data = svsGetDataService.getCreditCardsData();
         }
     }
 } (angular));

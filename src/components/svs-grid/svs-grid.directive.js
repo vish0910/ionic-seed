@@ -10,10 +10,7 @@
             templateUrl: 'components/svs-grid/svs-grid.html',
             scope: {},
             bindToController:{
-                requester: '=?',
-                type:'=?',
-                fromDate:'=?',
-                toDate:'=?'
+                data: '='
             },
             controller: 'svsGridController',
             controllerAs: 'svsGridVm'

@@ -1,5 +1,34 @@
-<ion-view cache-view="false" view-title="Reminders">
+<ion-view cache-view="false" view-title="Reminders" class="reminder-page">
     <ion-content scroll="true">
-        Body starts
+        <div class="svs-grid list">
+            <div class="item svs-item" ng-repeat="item in remindersVm.reminders" ng-class-odd="'dark-item'">
+                <div class="row no-left-margin">
+                    <div class="col-50">
+                        <div class="row row-top no-left-margin">
+                            <div class="col-50">{{item.name}}</div>
+                        </div>
+                        <div class="row row-bottom no-left-margin">
+                            <div class="col-50">{{item.dueDate | date}}</div>
+                        </div>
+                    </div>
+                    <div class="col-25 text-right date">In {{item.remainingDays}} Days</div>
+                </div>
+            </div>
+        </div>
+        <!--<ul class="list">-->
+            <!--<li class="item" ng-repeat="item in remindersVm.reminders" ng-class-odd="'dark-item'">-->
+                <!--<div class="row">-->
+                <!--<div class="col-50">-->
+                <!--<div class="row row-top">-->
+                <!--<div class="col-50">{{item.name}}</div>-->
+                <!--</div>-->
+                <!--<div class="row row-bottom">-->
+                <!--<div class="col-50">{{item.dueDate | date}}</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-25 text-right amount">{{item.remainingDays}}$</div>-->
+                <!--</div>-->
+            <!--</li>-->
+        <!--</ul>-->
     </ion-content>
 </ion-view>
