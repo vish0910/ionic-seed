@@ -1,0 +1,35 @@
+<ion-view name="appView" cache-view="false">
+    <ion-nav-bar class="bar-calm" align-title="center">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="right" class="button-bar-calm" icon-only>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="has-header" scroll="false">
+        <ion-tabs class="tabs-icon-only tabs-background-calm">
+            <ion-tab icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline" ui-sref="app.home.settings">
+            //Settings
+            <ion-nav-view name="settingsView"></ion-nav-view>
+            </ion-tab>
+            <ion-tab icon-on="ion-social-usd" icon-off="ion-social-usd-outline" ui-sref="app.home.creditcards">
+                //Credit Cards
+                <ion-nav-view name="creditcardsView"></ion-nav-view>
+            </ion-tab>
+            <ion-tab icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline" ui-sref="app.home.categories">
+                //Categories
+                <ion-nav-view name="categoriesView"></ion-nav-view>
+            </ion-tab>
+            <ion-tab icon-on="ion-plus" icon-off="ion-plus" ui-sref="app.home.add-transaction">
+                //Add Transaction
+                <ion-nav-view name="addTransactionView"></ion-nav-view>
+            </ion-tab>
+            <ion-tab icon-on="ion-ios-alarm" icon-off="ion-ios-alarm-outline" ui-sref="app.home.reminders">
+                //Reminders
+                <ion-nav-view name="remindersView"></ion-nav-view>
+            </ion-tab>
+            <ion-tab icon-on="ion-ios-list" icon-off="ion-ios-list-outline" ui-sref="app.home.transactions">
+                //Transactions
+                <ion-nav-view name="transactionsView"></ion-nav-view>
+            </ion-tab>
+        </ion-tabs>
+    </ion-content>
+</ion-view>

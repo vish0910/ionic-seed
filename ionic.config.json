@@ -1,6 +1,6 @@
 {
-  "name": "App Name here",
-  "app_id": "App id here",
+  "name": "up-money",
+  "app_id": "921ca1ff",
   "proxies": [
     {
       "path": "/api",

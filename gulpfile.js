@@ -43,3 +43,7 @@ gulp.task('emulate', ['clean'], function () {
 gulp.task('staging', ['clean'], function () {
     gulp.start('prepare:staging');
 });
+
+gulp.task('run', ['clean'], function () {
+    gulp.start('prepare:runbrowser');
+});

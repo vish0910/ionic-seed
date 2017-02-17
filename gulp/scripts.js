@@ -11,6 +11,7 @@ var $ = require('gulp-load-plugins')();
 function scriptsTask () {
     return gulp.src([
         path.join(conf.paths.src, '/**/*.js'),
+        path.join('!' + conf.paths.src, '/**/*.min.js'),
         path.join(conf.paths.tmp, '/serve/generated/*.js')
     ])
         .pipe($.eslint({

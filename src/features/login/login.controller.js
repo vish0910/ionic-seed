@@ -5,44 +5,17 @@
             .controller('LoginController', LoginController);
 
         // @ngInject
-        function LoginController($window, AuthService, $state) {
+        function LoginController($ionicPush, $state) {
             var loginVm = this;
 
-           
-            loginVm.validateLogin = validateLogin;
-            
-            function validateLogin() {
-                AuthService.authenticate(loginVm.email, loginVm.password)
-                    .then(function(resp) {
-                        _setUpPush();
-                    }, function() {
 
-                    });
-            }
+            loginVm.registerForPush = registerForPush;
 
-            function _setUpPush() {
-                $window.Ionic.Auth.login('basic', {}, {
-                    'email': loginVm.email,
-                    'password': loginVm.email
-                }).then(function (user) {
-                    AuthService.registerForPush(user, true);
-                }, function() {
-                    // or register and then login
-                    $window.Ionic.Auth.signup({
-                        'email': loginVm.email,
-                        'password': loginVm.email
-                    }).then(function (res) {
-                        $window.Ionic.Auth.login('basic', {}, {
-                            'email': loginVm.email,
-                            'password': loginVm.email
-                        }).then(function (user) {
-                            AuthService.registerForPush(user, true);
-                        }, function() {
-                            
-                        });
-                    }, function() {
-                        
-                    });
+            function registerForPush() {
+                $ionicPush.register().then(function(t) {
+                    return $ionicPush.saveToken(t);
+                }).then(function(t) {
+                    console.log('Token saved:', t.token);
                 });
             }
         }
