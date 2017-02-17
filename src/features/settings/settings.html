@@ -1,0 +1,12 @@
+<ion-nav-view>
+<ion-view cache-view="false" view-title="Settings">
+    <ion-content scroll="true">
+        <div class="list">
+            <div ng-repeat="item in settingsVm.settingsOptions" class="item">
+                <a ui-sref="{{item.url}}"> {{item.option}} </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+</ion-nav-view>
+

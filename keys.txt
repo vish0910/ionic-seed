@@ -1,14 +1,14 @@
-google api key : 
-sender id: 
-generate keystore: keytool -genkey -v -keystore nexstar.keystore -alias nexstar -keyalg RSA -keysize 2048 -validity 10000
+google api key :
+sender id:
+generate keystore: keytool -genkey -v -keystore up-money.keystore -alias up-money -keyalg RSA -keysize 2048 -validity 10000
 
 steps to build android :
 
 1. cordova build --release android
-2. jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ./nexstar.keystore ./platforms/android/build/outputs/apk/android-release-unsigned.apk nexstar
-3. ~/Library/Android/sdk/build-tools/23.0.3/zipalign -v 4 ./platforms/android/build/outputs/apk/android-release-unsigned.apk nexstar.apk
+2. jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ./up-money.keystore ./platforms/android/build/outputs/apk/android-release-unsigned.apk up-money
+3. ~/Library/Android/sdk/build-tools/25.0.2/zipalign -v 4 ./platforms/android/build/outputs/apk/android-release-unsigned.apk up-money.apk
 
-
+password: svsdeveloper2017
 
 steps for new project:
 

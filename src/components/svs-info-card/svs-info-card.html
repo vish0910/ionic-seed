@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="item item-divider text-center">
+        <span class="text-capitalize">{{svsInfoCardVm.data.type}}</span>
+    </div>
+    <div class="item item-text-wrap">
+        <div class="row">
+            <div class="col text-center">
+                ${{svsInfoCardVm.data.used}} of ${{svsInfoCardVm.data.budget}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <uib-progressbar max="svsInfoCardVm.data.budget" value="svsInfoCardVm.data.used"
+                                 type="{{svsInfoCardVm.data.barColor}}">
+                    {{(svsInfoCardVm.data.used/svsInfoCardVm.data.budget) * 100 | number:0 }}%
+                </uib-progressbar>
+            </div>
+        </div>
+        <div class="row" ng-if="svsInfoCardVm.data.dueDate">Due Date: {{svsInfoCardVm.data.dueDate | date}}</div>
+    </div>
+</div>

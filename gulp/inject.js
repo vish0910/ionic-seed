@@ -18,6 +18,7 @@ function injectTask () {
     var injectScripts = gulp.src([
         path.join(conf.paths.src, '/**/*.module.js'),
         path.join(conf.paths.src, '/**/*.js'),
+        path.join('!' + conf.paths.src, '/**/*.min.js'),
         path.join(conf.paths.tmp, '/serve/generated/*.js'),
         path.join('!' + conf.paths.src, '/**/*.spec.js'),
         path.join('!' + conf.paths.src, '/tools/**/*.module.js'),

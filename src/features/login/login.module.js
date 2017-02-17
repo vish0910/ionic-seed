@@ -10,7 +10,7 @@
             .state('app.login', {
                 url: '/login',
                 views: {
-                    'appView': {
+                    'loginView': {
                         templateUrl: 'features/login/login.html',
                         controller: 'LoginController as loginVm'
                     }

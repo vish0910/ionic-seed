@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "description": "Egen Solutions Platform for app name here",
   "dependencies": {
+    "@ionic/cloud": "^0.15.1",
+    "bluebird": "^3.4.7",
     "gulp-angular-filesort": "^1.1.1",
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
@@ -51,7 +53,7 @@
     "cordova-plugin-vibration",
     {
       "variables": {
-        "SENDER_ID": "507975739624"
+        "SENDER_ID": "864803585298 "
       },
       "locator": "phonegap-plugin-push"
     }

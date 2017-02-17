@@ -1,0 +1,17 @@
+<div class="svs-grid list">
+    <div class="item svs-item" ng-repeat="item in svsGridVm.data" ng-class-odd="'dark-item'" on-hold="svsGridVm.onItemHold()">
+        <div class="row no-left-margin">
+            <div class="col-75">
+                <div class="row row-top no-left-margin">
+                    <div class="col-75">{{item.description}}</div>
+                    <div class="col-25">{{item.category}}</div>
+                </div>
+                <div class="row row-bottom no-left-margin">
+                    <div class="col-75">{{item.date | date}}</div>
+                    <div class="col-25">{{item.card}}</div>
+                </div>
+            </div>
+            <div class="col-25 text-right amount">{{item.amount}}</div>
+        </div>
+    </div>
+</div>

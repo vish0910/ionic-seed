@@ -4,6 +4,7 @@
     angular.module('app', [
         // 3rd party
         'ionic',
+        'ionic.cloud',
         'ionic.service.core', // needed for ionic analytics
         'ionic.service.analytics',
         'ngCordova',
@@ -11,19 +12,52 @@
         'pascalprecht.translate',
         'ngIOS9UIWebViewPatch',
         'ui.router',
-        'ionic-material',
         'ui.bootstrap',
 
         // services
         'app.auth',
-        'app.login'
+
+        //features
+        'app.login',
+        'app.home',
+        'app.addTransaction',
+        'app.categories',
+        'app.creditcards',
+        'app.reminders',
+        'app.settings',
+        'app.transactions',
+        // components
+        'svs.svsGrid',
+        'svs.svsInfoCard',
+        'svs.svsGetData'
+
     ])
         .constant('AvailableLanguages', ['en-US', 'ru-RU', 'el-GR'])
         .constant('DefaultLanguage', 'en-US')
         .config(translateConfig)
         .config(appConfig)
-        .config(ionicConfig);
+        .config(ionicConfig)
+        .config(pushConfig);
 
+    function pushConfig($ionicCloudProvider) {
+        $ionicCloudProvider.init({
+            "core": {
+                "app_id": "921ca1ff"
+            },
+            "push": {
+                "sender_id": "864803585298",
+                "pluginConfig": {
+                    "ios": {
+                        "badge": true,
+                        "sound": true
+                    },
+                    "android": {
+                        "iconColor": "#343434"
+                    }
+                }
+            }
+        });
+    }
     // @ngInject
     function translateConfig($translateProvider, DefaultLanguage) {
         $translateProvider.useStaticFilesLoader({
@@ -39,14 +73,21 @@
                 url: '/app',
                 abstract: true,
                 template: '<ion-nav-view class="app" name="appView"></ion-nav-view>'
+            })
+            .state('music', {
+                url: '/music',
+                template: '<h1>music.html</h1>'
             });
 
         $urlRouterProvider.otherwise(function ($injector, $location) {
-            var user = false;
+            var user = true;
             var state = $injector.get('$state');
             if (user) {
                 // go to home
+                console.log('heres');
+                state.go('app.home.categories');
             } else {
+                console.log('login here');
                 state.go('app.login');
             }
             return $location.path();
@@ -69,8 +110,7 @@
         $ionicConfigProvider.backButton.previousTitleText(false);
         $ionicConfigProvider.backButton.text(' ');
         $ionicConfigProvider.views.swipeBackEnabled(false);
-        $ionicConfigProvider.tabs.position('top');
-        $ionicConfigProvider.navBar.alignTitle('left');
+        $ionicConfigProvider.tabs.position('bottom');
 
         if (CONFIG.devMode) {
             console.info('Analytics tracking is disabled in dev mode, update package.json to enable tracking');
