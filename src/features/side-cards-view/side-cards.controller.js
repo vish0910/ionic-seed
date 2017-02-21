@@ -5,7 +5,7 @@ angular
 function SideCardsCtrl(svsGetDataService, $ionicModal, $scope) {
     var vm = this;
     var Cards = ['Barclaycard MasterCard', 'Chase Freedom', 'Blue Cash Amex', 'Citi Double Cash', 'Discover it',
-        'Wells Fargo Visa', 'Chase Slate'];
+        'Wells Fargo Visa', 'Chase Slate', 'Chase', 'Bank Of America', 'Citi', 'American Express', 'Chase Sapphire'];
 
     vm.openEditModal = openEditModal;
     vm.openAddModal = openAddModal;
@@ -16,7 +16,6 @@ function SideCardsCtrl(svsGetDataService, $ionicModal, $scope) {
     function init(){
         vm.usersCards = svsGetDataService.getCards();
         vm.suggestedCards = _.difference(Cards,_.map(vm.usersCards, 'name'));
-        console.log(vm.usersCards, vm.suggestedCards)
     }
 
     function deleteCard(card){

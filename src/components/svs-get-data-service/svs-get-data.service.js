@@ -21,7 +21,8 @@
         self.deleteCategory = deleteCategory;
         self.setCard = setCard;
         self.deleteCard = deleteCard;
-        self.setUtilities = setUtilities;
+        self.setUtility = setUtility;
+        self.deleteUtility = deleteUtility;
 
         var transaction = [
             {
@@ -76,11 +77,7 @@
         var utilities = [
             { name: 'Electricity', dueDate: "2017-02-17T06:00:00.000Z" },
             { name: 'Telephone', dueDate: "2017-03-11T06:00:00.000Z" },
-            { name: 'Mobile', dueDate: "2017-03-27T06:00:00.000Z" },
-            { name: 'Internet', dueDate: "2017-02-23T06:00:00.000Z" },
-            { name: 'Car Insurance', dueDate: "2017-02-25T06:00:00.000Z" },
-            { name: 'Home Insurance', dueDate: "2017-02-20T06:00:00.000Z" },
-            { name: 'Home Rent', dueDate: "2017-03-25T06:00:00.000Z" }
+            { name: 'Mobile', dueDate: "2017-03-27T06:00:00.000Z" }
         ];
 
         function getCategories() {
@@ -123,8 +120,18 @@
             return utilities;
         }
 
-        function setUtilities(data) {
-            utilities.push(data);
+        function setUtility(data) {
+            if (data.name && data.dueDate) {
+                _.mergeById(utilities, data, 'name')
+            }
+        }
+
+        function deleteUtility(data) {
+            if (data.name) {
+                _.remove(utilities, {
+                    name: data.name
+                });
+            }
         }
 
         function getCreditCardsData() {
