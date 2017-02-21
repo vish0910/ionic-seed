@@ -1,5 +1,7 @@
 <div class="svs-grid list">
-    <div class="item svs-item" ng-repeat="item in svsGridVm.data" ng-class-odd="'dark-item'" on-hold="svsGridVm.onItemHold()">
+    <div class="item svs-item"
+         ng-repeat="item in svsGridVm.data | orderBy:svsGridVm.sortBy"
+         ng-class-odd="'dark-item'">
         <div class="row no-left-margin">
             <div class="col-75">
                 <div class="row row-top no-left-margin">

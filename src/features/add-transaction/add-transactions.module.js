@@ -11,7 +11,7 @@
                 views: {
                     'addTransactionView': {
                         templateUrl: 'features/add-transaction/add-transaction.html',
-                        controller: 'AddTransactionController as addTransactionVm'
+                        controller: 'AddTransactionController as vm'
                     }
                 },
                 data: {

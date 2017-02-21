@@ -177,7 +177,7 @@
         }
 
         function getTransaction() {
-            return _.sortByOrder(transaction, 'date', 'desc')
+            return transaction;
         }
 
         function putTransaction(data) {
