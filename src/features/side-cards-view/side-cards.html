@@ -1,5 +1,57 @@
-<ion-view view-title="Cards Settings">
-  <ion-content>
-    Card settings here
-  </ion-content>
+<ion-view view-title="Card Settings">
+    <ion-content>
+        <div class="row item item-divider">
+            <div>
+                <span ng-click="vm.data.showDelete = !vm.data.showDelete;">
+                    <span ng-if="!vm.data.showDelete">Delete</span>
+                    <span ng-if="vm.data.showDelete">Done</span>
+                </span>
+            </div>
+            <div style="padding-left: 100px;">
+                <span>My Cards</span>
+            </div>
+            <div class="item-icon-right">
+                <i class="icon ion-ios-plus-outline"
+                   ng-click="vm.openAddModal()"></i>
+            </div>
+        </div>
+        <ion-list show-delete="vm.data.showDelete" can-swipe="true">
+            <ion-item ng-repeat="card in vm.usersCards">
+                {{card.name}}
+                <ion-delete-button class="ion-minus-circled"
+                                   ng-click="vm.deleteCard(card)">
+                </ion-delete-button>
+                <span class="item-note"
+                      ng-if="!vm.data.showDelete"
+                      style="margin-right: -40px;"
+                      ng-click="vm.openEditModal(card)">
+                    Limit:${{card.budget}}&nbsp;(Due:{{card.dueDate | date:'MMM-dd'}})&nbsp
+                      <i class="icon ion-chevron-right">
+                      </i>
+                </span>
+                <span ng-if="vm.data.showDelete"
+                      class="item-note"
+                      style="margin-right: 10px;">Limit:${{card.budget}}
+                </span>
+            </ion-item>
+        </ion-list>
+        <div class="row" style="margin-left:0;">
+            <div class="col text-center">
+                <button class="button button-outline button-positive"
+                        ng-click="vm.openAddModal()">Add Card
+                </button>
+            </div>
+        </div>
+        <ion-list>
+            <div class="item item-divider">
+                Suggested Cards
+            </div>
+            <ion-item ng-repeat="card in vm.suggestedCards">
+                <div class="item-icon-right">{{card}}
+                    <i class="icon ion-ios-plus"
+                       ng-click="vm.openAddModal(card)"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>

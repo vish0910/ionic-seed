@@ -11,7 +11,7 @@
                 views: {
                     'sideCardsView': {
                         templateUrl: 'features/side-cards-view/side-cards.html',
-                        controller: 'SideCardsCtrl as Vm'
+                        controller: 'SideCardsCtrl as vm'
                     }
                 },
                 data: {

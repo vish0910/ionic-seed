@@ -1,7 +1,7 @@
 <ion-view cache-view="false" view-title="Categories">
     <ion-content scroll="true">
         <div ng-repeat="item in categoriesVm.data">
-            <div ng-click="categoriesVm.goToCategory(item.type)">
+            <div ng-click="categoriesVm.goToCategory(item.name)">
                 <svs-info-card data="item"></svs-info-card>
             </div>
         </div>

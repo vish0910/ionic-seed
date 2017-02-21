@@ -1,7 +1,7 @@
 <ion-view cache-view="false" view-title="Credit Cards">
     <ion-content scroll="true">
         <div ng-repeat="item in creditcardsVm.data">
-            <div ng-click="creditcardsVm.goToCard(item.type)">
+            <div ng-click="creditcardsVm.goToCard(item.name)">
                 <svs-info-card data="item"></svs-info-card>
             </div>
         </div>

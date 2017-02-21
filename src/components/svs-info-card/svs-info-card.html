@@ -1,6 +1,6 @@
 <div class="card">
     <div class="item item-divider text-center">
-        <span class="text-capitalize">{{svsInfoCardVm.data.type}}</span>
+        <span class="text-capitalize">{{svsInfoCardVm.data.name}}</span>
     </div>
     <div class="item item-text-wrap">
         <div class="row">
@@ -10,7 +10,8 @@
         </div>
         <div class="row">
             <div class="col">
-                <uib-progressbar max="svsInfoCardVm.data.budget" value="svsInfoCardVm.data.used"
+                <uib-progressbar max="svsInfoCardVm.data.budget"
+                                 value="svsInfoCardVm.data.used"
                                  type="{{svsInfoCardVm.data.barColor}}">
                     {{(svsInfoCardVm.data.used/svsInfoCardVm.data.budget) * 100 | number:0 }}%
                 </uib-progressbar>

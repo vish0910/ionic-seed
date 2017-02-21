@@ -11,7 +11,7 @@
                 views: {
                     'sideCategoryView': {
                         templateUrl: 'features/side-categories-view/side-categories.html',
-                        controller: 'SideCategoriesCtrl as Vm'
+                        controller: 'SideCategoriesCtrl as vm'
                     }
                 },
                 data: {
