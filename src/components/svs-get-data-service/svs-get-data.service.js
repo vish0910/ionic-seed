@@ -82,7 +82,7 @@
             { name: 'Electricity', dueDate: "2017-02-17T06:00:00.000Z" },
             { name: 'Telephone', dueDate: "2017-03-11T06:00:00.000Z" },
             { name: 'Mobile', dueDate: "2017-03-27T06:00:00.000Z" },
-            { name: 'Internet', dueDate: "2017-02-03T06:00:00.000Z" },
+            { name: 'Internet', dueDate: "2017-02-23T06:00:00.000Z" },
             { name: 'Car Insurance', dueDate: "2017-02-25T06:00:00.000Z" },
             { name: 'Home Insurance', dueDate: "2017-02-20T06:00:00.000Z" },
             { name: 'Home Rent', dueDate: "2017-03-25T06:00:00.000Z" }
