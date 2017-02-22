@@ -17,9 +17,12 @@
         self.getCategories = getCategories;
         self.getCards = getCards;
         self.getUtilities = getUtilities;
-        self.setCategories = setCategories;
-        self.setCards = setCards;
-        self.setUtilities = setUtilities;
+        self.setCategory = setCategory;
+        self.deleteCategory = deleteCategory;
+        self.setCard = setCard;
+        self.deleteCard = deleteCard;
+        self.setUtility = setUtility;
+        self.deleteUtility = deleteUtility;
 
         var transaction = [
             {
@@ -58,58 +61,77 @@
                 "card": "Citi"
             }];
         var categories = [
-            { name: 'Business', budget: 300 },
-            { name: 'Car/Transport', budget: 400 },
             { name: 'Clothing', budget: 100 },
             { name: 'Eating Out', budget: 200 },
-            { name: 'Education', budget: 50 },
-            { name: 'Electronics', budget: 200 },
-            { name: 'Fun', budget: 300 },
             { name: 'Groceries', budget: 200 },
-            { name: 'Health', budget: 50 },
             { name: 'Nightlife', budget: 300 },
-            { name: 'Shopping', budget: 200 },
             { name: 'Travel', budget: 300 }
         ];
         var cards = [
-            { name: 'Chase', dueDate: "2017-03-17T06:00:00.000Z", limit: 1000 },
-            { name: 'Bank Of America', dueDate: "2017-03-11T06:00:00.000Z", limit: 2000 },
-            { name: 'Citi', dueDate: "2017-02-27T06:00:00.000Z", limit: 1000 },
-            { name: 'American Express', dueDate: "2017-03-03T06:00:00.000Z", limit: 2000 },
-            { name: 'Chase Sapphire', dueDate: "2017-02-25T06:00:00.000Z", limit: 1000 }
+            { name: 'Chase', dueDate: "2017-03-17T06:00:00.000Z", budget: 1000 },
+            { name: 'Bank Of America', dueDate: "2017-03-11T06:00:00.000Z", budget: 2000 },
+            { name: 'Citi', dueDate: "2017-02-27T06:00:00.000Z", budget: 1000 },
+            { name: 'American Express', dueDate: "2017-03-03T06:00:00.000Z", budget: 2000 },
+            { name: 'Chase Sapphire', dueDate: "2017-02-25T06:00:00.000Z", budget: 1000 }
         ];
         var utilities = [
             { name: 'Electricity', dueDate: "2017-02-17T06:00:00.000Z" },
             { name: 'Telephone', dueDate: "2017-03-11T06:00:00.000Z" },
-            { name: 'Mobile', dueDate: "2017-03-27T06:00:00.000Z" },
-            { name: 'Internet', dueDate: "2017-02-03T06:00:00.000Z" },
-            { name: 'Car Insurance', dueDate: "2017-02-25T06:00:00.000Z" },
-            { name: 'Home Insurance', dueDate: "2017-02-20T06:00:00.000Z" },
-            { name: 'Home Rent', dueDate: "2017-03-25T06:00:00.000Z" }
+            { name: 'Mobile', dueDate: "2017-03-27T06:00:00.000Z" }
         ];
 
         function getCategories() {
             return categories;
         }
 
-        function setCategories() {
-            categories.push(data);
+        function setCategory(data) {
+            if (data.name && data.budget) {
+                _.mergeById(categories, data, 'name')
+            }
+        }
+
+        function deleteCategory(data) {
+            if (data.name) {
+                _.remove(categories, {
+                    name: data.name
+                });
+            }
         }
 
         function getCards() {
             return cards;
         }
 
-        function setCards(data) {
-            cards.push(data);
+        function setCard(data) {
+            if (data.name && data.budget && data.dueDate) {
+                _.mergeById(cards, data, 'name')
+            }
+        }
+
+        function deleteCard(data) {
+            if (data.name) {
+                _.remove(cards, {
+                    name: data.name
+                });
+            }
         }
 
         function getUtilities() {
             return utilities;
         }
 
-        function setUtilities(data) {
-            utilities.push(data);
+        function setUtility(data) {
+            if (data.name && data.dueDate) {
+                _.mergeById(utilities, data, 'name')
+            }
+        }
+
+        function deleteUtility(data) {
+            if (data.name) {
+                _.remove(utilities, {
+                    name: data.name
+                });
+            }
         }
 
         function getCreditCardsData() {
@@ -119,8 +141,8 @@
                     .map(function (value, key) {
                         return {
                             dueDate: Date.now(),
-                            budget: _.random(1000, 2000),
-                            type: key,
+                            budget: _.filter(cards, { 'name': key })[0].budget,
+                            name: key,
                             used: _.sum(_.pluck(value, 'amount'))
                         }
                     })
@@ -136,22 +158,22 @@
 
         }
 
-        function getCreditCardsTransactionData(type) {
+        function getCreditCardsTransactionData(name) {
             var data = _
                 .chain(transaction)
                 .groupBy('card')
                 .value();
 
-            return data[type];
+            return data[name];
         }
 
-        function getCategoriesTransactionData(type) {
+        function getCategoriesTransactionData(name) {
             var data = _
                 .chain(transaction)
                 .groupBy('category')
                 .value();
 
-            return data[type];
+            return data[name];
         }
 
         function getCategoriesData() {
@@ -160,8 +182,8 @@
                     .groupBy('category')
                     .map(function (value, key) {
                         return {
-                            budget: _.random(100, 200),
-                            type: key,
+                            budget: _.filter(categories, { 'name': key })[0].budget,
+                            name: key,
                             used: _.sum(_.pluck(value, 'amount'))
                         }
                     })
@@ -177,7 +199,7 @@
         }
 
         function getTransaction() {
-            return _.sortByOrder(transaction, 'date', 'desc')
+            return transaction;
         }
 
         function putTransaction(data) {
@@ -198,6 +220,23 @@
 
             return type;
         }
+
+        _.mixin({
+            mergeById: function mergeById(arr, obj, idProp) {
+                var index = _.findIndex(arr, function (elem) {
+                    // double check, since undefined === undefined
+                    return typeof elem[idProp] !== "undefined" && elem[idProp] === obj[idProp];
+                });
+
+                if (index > -1) {
+                    arr[index] = obj;
+                } else {
+                    arr.push(obj);
+                }
+
+                return arr;
+            }
+        });
     }
 
 }(angular));

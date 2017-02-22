@@ -10,7 +10,8 @@
             templateUrl: 'components/svs-grid/svs-grid.html',
             scope: {},
             bindToController:{
-                data: '='
+                data: '=',
+                sortBy : '='
             },
             controller: 'svsGridController',
             controllerAs: 'svsGridVm'

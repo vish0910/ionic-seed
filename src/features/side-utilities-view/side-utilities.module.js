@@ -11,7 +11,7 @@
                 views: {
                     'sideUtilitiesView': {
                         templateUrl: 'features/side-utilities-view/side-utilities.html',
-                        controller: 'SideUtilitiesCtrl as Vm'
+                        controller: 'SideUtilitiesCtrl as vm'
                     }
                 },
                 data: {

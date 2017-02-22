@@ -30,6 +30,8 @@
         'app.sideUser',
         'app.sideCategories',
         'app.sideCards',
+        'app.categoryTransactions',
+        'app.creditCardTransactions',
         // components
         'svs.svsGrid',
         'svs.svsInfoCard',

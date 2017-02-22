@@ -1,0 +1,32 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Card</h1>
+        <button class="button button-clear button-primary"
+                ng-click="modal.hide()">Cancel
+        </button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">Name</span>
+                <input ng-model="card.name" type="text">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Limit</span>
+                <input ng-model="card.budget" type="number">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Due Date</span>
+                <input date-input
+                       type="date"
+                       ng-model="card.dueDate"
+                       value="{{card.dueDate | date:'yyyy-MM-dd'}}">
+            </label>
+            <div>
+                <button class="button button-full button-positive"
+                        ng-click="addCard(card)">Save
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

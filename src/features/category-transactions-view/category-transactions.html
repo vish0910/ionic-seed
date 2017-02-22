@@ -1,0 +1,5 @@
+<ion-view cache-view="false" view-title={{vm.categoryName}} class="transactions-page">
+    <ion-content scroll="true">
+        <svs-grid ng-if="vm.data.length" data="vm.data" sort-by="'-date'"></svs-grid>
+    </ion-content>
+</ion-view>

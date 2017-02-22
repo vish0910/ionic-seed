@@ -5,10 +5,11 @@
         .controller('AddTransactionController', AddTransactionController);
 
     function AddTransactionController(svsGetDataService) {
-        var addTransactionVm = this;
+        var vm = this;
         var cards;
         var categories;
-        addTransactionVm.addTransaction = addTransaction;
+
+        vm.addTransaction = addTransaction;
 
         init();
 
@@ -16,17 +17,21 @@
             categories = svsGetDataService.getCategories();
             cards = svsGetDataService.getCards();
 
-            addTransactionVm.categories = {
+            vm.categories = {
                 options: _.map(categories, _.property('name'))
             };
 
-            addTransactionVm.cards = {
+            vm.cards = {
                 options: _.map(cards, _.property('name'))
             };
         }
 
         function addTransaction(obj) {
-            svsGetDataService.putTransaction(obj)
+            var transaction = angular.copy(obj);
+
+            _.set(transaction, 'date', obj.date.toISOString());
+
+            svsGetDataService.putTransaction(transaction)
         }
     }
 }(angular));

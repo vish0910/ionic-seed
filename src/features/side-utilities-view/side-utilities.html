@@ -1,5 +1,56 @@
 <ion-view view-title="Utility Settings">
-  <ion-content>
-    Utility settings here
-  </ion-content>
+    <ion-content>
+        <div class="row item item-divider">
+            <div>
+                <span ng-click="vm.data.showDelete = !vm.data.showDelete;">
+                    <span ng-if="!vm.data.showDelete">Delete</span>
+                    <span ng-if="vm.data.showDelete">Done</span>
+                </span>
+            </div>
+            <div style="padding-left: 100px;">
+                <span>My Utilities</span>
+            </div>
+            <div class="item-icon-right">
+                <i class="icon ion-ios-plus-outline"
+                   ng-click="vm.openAddModal()"></i>
+            </div>
+        </div>
+        <ion-list show-delete="vm.data.showDelete" can-swipe="true">
+            <ion-item ng-repeat="utility in vm.usersUtilities">
+                {{utility.name}}
+                <ion-delete-button class="ion-minus-circled"
+                                   ng-click="vm.deleteUtility(utility)">
+                </ion-delete-button>
+                <span class="item-note"
+                      ng-if="!vm.data.showDelete"
+                      style="margin-right: -40px;"
+                      ng-click="vm.openEditModal(utility)">Due:{{utility.dueDate | date:'MMM-dd'}}&nbsp
+                      <i class="icon ion-chevron-right">
+                      </i>
+                </span>
+                <span ng-if="vm.data.showDelete"
+                      class="item-note"
+                      style="margin-right: 10px;">Due:{{utility.dueDate | date:'MMM-dd'}}
+                </span>
+            </ion-item>
+        </ion-list>
+        <div class="row" style="margin-left:0;">
+            <div class="col text-center">
+                <button class="button button-outline button-positive"
+                        ng-click="vm.openAddModal()">Add Utility
+                </button>
+            </div>
+        </div>
+        <ion-list>
+            <div class="item item-divider">
+                Suggested Utilities
+            </div>
+            <ion-item ng-repeat="utility in vm.suggestedUtilities">
+                <div class="item-icon-right">{{utility}}
+                    <i class="icon ion-ios-plus"
+                       ng-click="vm.openAddModal(utility)"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>
