@@ -5,8 +5,9 @@
             .controller('LoginController', LoginController);
 
         // @ngInject
-        function LoginController($ionicPush, $state) {
+        function LoginController($ionicPush) {
             var loginVm = this;
+            console.log("HI There");
 
 
             loginVm.registerForPush = registerForPush;

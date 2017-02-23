@@ -87,7 +87,7 @@
             if (user) {
                 // go to home
                 console.log('heres');
-                state.go('app.home.categories');
+                state.go('app.login');
             } else {
                 console.log('login here');
                 state.go('app.login');

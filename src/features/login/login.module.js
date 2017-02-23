@@ -1,10 +1,9 @@
-(function(angular) {
+(function (angular) {
     'use strict';
     angular
         .module('app.login', [])
         .config(loginConfig);
 
-    // @ngInject
     function loginConfig($stateProvider) {
         $stateProvider
             .state('app.login', {
