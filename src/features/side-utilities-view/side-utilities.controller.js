@@ -1,11 +1,20 @@
 angular
-  .module('app.sideUtilities')
-  .controller('SideUtilitiesCtrl', SideUtilitiesCtrl);
+    .module('app.sideUtilities')
+    .controller('SideUtilitiesCtrl', SideUtilitiesCtrl);
 
 function SideUtilitiesCtrl(svsGetDataService, $ionicModal, $scope) {
     var vm = this;
-    var Utilities = ['Internet', 'Car Insurance', 'Home Insurance', 'Home Rent', 'Health Insurance',
-        'Dental Insurance', 'Electricity', 'Telephone', 'Mobile'];
+    var Utilities = [
+        { name: 'Internet' },
+        { name: 'Car Insurance' },
+        { name: 'Home Insurance' },
+        { name: 'Home Rent' },
+        { name: 'Health Insurance' },
+        { name: 'Dental Insurance' },
+        { name: 'Electricity' },
+        { name: 'Telephone' },
+        { name: 'Mobile' }
+    ];
 
     vm.openEditModal = openEditModal;
     vm.openAddModal = openAddModal;
@@ -13,27 +22,27 @@ function SideUtilitiesCtrl(svsGetDataService, $ionicModal, $scope) {
 
     init();
 
-    function init(){
+    function init() {
         vm.usersUtilities = svsGetDataService.getUtilities();
-        vm.suggestedUtilities = _.difference(Utilities,_.map(vm.usersUtilities, 'name'));
+        vm.suggestedUtilities = _.difference(_.map(Utilities, 'name'), _.map(vm.usersUtilities, 'name'));
     }
 
-    function deleteUtility(utility){
+    function deleteUtility(utility) {
         svsGetDataService.deleteUtility(utility);
-        vm.suggestedUtilities = _.difference(Utilities,_.map(vm.usersUtilities, 'name'));
+        vm.suggestedUtilities = _.difference(_.map(Utilities, 'name'), _.map(vm.usersUtilities, 'name'));
     }
 
     $ionicModal.fromTemplateUrl('features/side-utilities-view/add-utility.html', {
         scope: $scope,
         animation: 'slide-in-up',
         focusFirstInput: true
-    }).then(function(modal) {
+    }).then(function (modal) {
         $scope.modal = modal;
     });
 
-    $scope.addUtility = function(data) {
+    $scope.addUtility = function (data) {
         svsGetDataService.setUtility(data);
-        vm.suggestedUtilities = _.difference(Utilities,_.map(vm.usersUtilities, 'name'));
+        vm.suggestedUtilities = _.difference(_.map(Utilities, 'name'), _.map(vm.usersUtilities, 'name'));
         $scope.modal.hide();
     };
 
@@ -46,7 +55,7 @@ function SideUtilitiesCtrl(svsGetDataService, $ionicModal, $scope) {
 
     }
 
-    function openAddModal(utilityName){
+    function openAddModal(utilityName) {
         if (vm.data) {
             vm.data.showDelete = false;
         }

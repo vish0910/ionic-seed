@@ -1,11 +1,22 @@
 angular
-  .module('app.sideCards')
-  .controller('SideCardsCtrl', SideCardsCtrl);
+    .module('app.sideCards')
+    .controller('SideCardsCtrl', SideCardsCtrl);
 
 function SideCardsCtrl(svsGetDataService, $ionicModal, $scope) {
     var vm = this;
-    var Cards = ['Barclaycard MasterCard', 'Chase Freedom', 'Blue Cash Amex', 'Citi Double Cash', 'Discover it',
-        'Wells Fargo Visa', 'Chase Slate', 'Chase', 'Bank Of America', 'Citi', 'American Express', 'Chase Sapphire'];
+    var Cards = [
+        { name: 'Barclaycard MasterCard' },
+        { name: 'Chase Freedom' },
+        { name: 'Blue Cash Amex' },
+        { name: 'Citi Double Cash' },
+        { name: 'Discover it' },
+        { name: 'Chase' },
+        { name: 'Chase Slate' },
+        { name: 'Bank Of America' },
+        { name: 'Citi' },
+        { name: 'American Express' },
+        { name: 'Chase Sapphire' }
+    ];
 
     vm.openEditModal = openEditModal;
     vm.openAddModal = openAddModal;
@@ -13,27 +24,27 @@ function SideCardsCtrl(svsGetDataService, $ionicModal, $scope) {
 
     init();
 
-    function init(){
+    function init() {
         vm.usersCards = svsGetDataService.getCards();
-        vm.suggestedCards = _.difference(Cards,_.map(vm.usersCards, 'name'));
+        vm.suggestedCards = _.difference(_.map(Cards, 'name'), _.map(vm.usersCards, 'name'));
     }
 
-    function deleteCard(card){
+    function deleteCard(card) {
         svsGetDataService.deleteCard(card);
-        vm.suggestedCards = _.difference(Cards,_.map(vm.usersCards, 'name'));
+        vm.suggestedCards = _.difference(_.map(Cards, 'name'), _.map(vm.usersCards, 'name'));
     }
 
     $ionicModal.fromTemplateUrl('features/side-cards-view/add-card.html', {
         scope: $scope,
         animation: 'slide-in-up',
         focusFirstInput: true
-    }).then(function(modal) {
+    }).then(function (modal) {
         $scope.modal = modal;
     });
 
-    $scope.addCard = function(data) {
+    $scope.addCard = function (data) {
         svsGetDataService.setCard(data);
-        vm.suggestedCards = _.difference(Cards,_.map(vm.usersCards, 'name'));
+        vm.suggestedCards = _.difference(_.map(Cards, 'name'), _.map(vm.usersCards, 'name'));
         $scope.modal.hide();
     };
 
@@ -47,7 +58,7 @@ function SideCardsCtrl(svsGetDataService, $ionicModal, $scope) {
 
     }
 
-    function openAddModal(cardName){
+    function openAddModal(cardName) {
         if (vm.data) {
             vm.data.showDelete = false;
         }
