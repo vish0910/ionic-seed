@@ -13,9 +13,11 @@
         'ngIOS9UIWebViewPatch',
         'ui.router',
         'ui.bootstrap',
+        'firebase',
 
         // services
         'app.auth',
+        'app.firebase',
 
         //features
         'app.login',
@@ -43,8 +45,21 @@
         .config(translateConfig)
         .config(appConfig)
         .config(ionicConfig)
-        .config(pushConfig);
+        .config(pushConfig)
+        .config(firebaseConfig);
 
+    // @ngInject
+    function firebaseConfig(){
+        var config = {
+            apiKey: "AIzaSyC0YiWBTqSwVxpVvOBDMmqZEBM_ZXZOMwI",
+            authDomain: "up-money-f4f75.firebaseapp.com",
+            databaseURL: "https://up-money-f4f75.firebaseio.com",
+            storageBucket: "up-money-f4f75.appspot.com",
+            messagingSenderId: "423301772429"
+        };
+        firebase.initializeApp(config);
+    }
+    // @ngInject
     function pushConfig($ionicCloudProvider) {
         $ionicCloudProvider.init({
             "core": {

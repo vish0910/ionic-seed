@@ -53,6 +53,9 @@
                          on-deselect="clearHistory()">
                     <ion-nav-view name="sideUserView"></ion-nav-view>
                 </ion-tab>
+                <ion-tab class="tab-hidden">
+                    <ion-nav-view name=""></ion-nav-view>
+                </ion-tab>
             </ion-tabs>
         </ion-side-menu-content>
 
@@ -73,6 +76,9 @@
                     </ion-item>
                     <ion-item menu-close ui-sref="app.home.user">
                         User settings
+                    </ion-item>
+                    <ion-item ng-click="vm.logout()" style="color: red;">
+                        Log Out
                     </ion-item>
                 </ion-list>
             </ion-content>

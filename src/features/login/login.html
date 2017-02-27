@@ -1,9 +1,31 @@
-<ion-view class="login" cache-view="false">
-    <ion-header>
-        hyhyhyh
-    </ion-header>
-    <ion-content class="has-header" scroll="true">
-        App Loaded
-        <button ng-click="loginVm.registerForPush()"></button>
+<ion-view view-title="Login" class="login" cache-view="false">
+    <ion-content class="padding">
+        <div class="list">
+            <!--<img src="resources/img/loading.gif" class="logo">-->
+            <div class="logoText">
+                moneyUp
+            </div>
+        </div>
+        <div class="list card padding">
+            <label class="item item-input">
+                <span class="input-label">Email</span>
+                <input type="text" ng-model="user.email">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Password</span>
+                <input type="password" ng-model="user.pwdForLogin">
+            </label>
+            <button ng-click="vm.signIn(user)" class="button button-block button-positive activated">
+                Sign In
+            </button>
+            <button ng-click="vm.reset(user)" class="button button-block button-positive activated">
+                Reset My Password
+            </button>
+        </div>
+        <div class="list" style="text-align:center">
+            <button ng-click="modal.show()" class="button button-small button-outline icon-left ion-person-add button-positive">
+                Create New Account
+            </button>
+        </div>
     </ion-content>
 </ion-view>
