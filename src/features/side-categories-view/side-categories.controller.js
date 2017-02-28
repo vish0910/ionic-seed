@@ -2,22 +2,8 @@ angular
     .module('app.sideCategories')
     .controller('SideCategoriesCtrl', SideCategoriesCtrl);
 
-function SideCategoriesCtrl(svsGetDataService, $ionicModal, $scope) {
+function SideCategoriesCtrl($ionicModal, $scope, DefaultCategories, userCategories, $timeout) {
     var vm = this;
-    var Categories = [
-        { name: 'Business' },
-        { name: 'Car/Transport' },
-        { name: 'Clothing' },
-        { name: 'Eating Out' },
-        { name: 'Education' },
-        { name: 'Electronics' },
-        { name: 'Fun' },
-        { name: 'Groceries' },
-        { name: 'Health' },
-        { name: 'Nightlife' },
-        { name: 'Shopping' },
-        { name: 'Travel' }
-    ];
 
     vm.openEditModal = openEditModal;
     vm.openAddModal = openAddModal;
@@ -26,13 +12,17 @@ function SideCategoriesCtrl(svsGetDataService, $ionicModal, $scope) {
     init();
 
     function init() {
-        vm.usersCategories = svsGetDataService.getCategories();
-        vm.suggestedCategories = _.difference(_.map(Categories, 'name'), _.map(vm.usersCategories, 'name'));
+        vm.usersCategories = userCategories;
+        vm.suggestedCategories = _.difference(_.map(DefaultCategories, 'name'), _.map(userCategories, 'name'));
     }
 
     function deleteCategory(category) {
-        svsGetDataService.deleteCategory(category);
-        vm.suggestedCategories = _.difference(_.map(Categories, 'name'), _.map(vm.usersCategories, 'name'));
+        userCategories.$remove(category); // remove category from firebase
+
+        // wait to load page so vm.suggestedCategories updates
+        $timeout(function () {
+            vm.suggestedCategories = _.difference(_.map(DefaultCategories, 'name'), _.map(userCategories, 'name'));
+        });
     }
 
     $ionicModal.fromTemplateUrl('features/side-categories-view/add-category.html', {
@@ -43,16 +33,28 @@ function SideCategoriesCtrl(svsGetDataService, $ionicModal, $scope) {
         $scope.modal = modal;
     });
 
-    $scope.addCategory = function (data) {
-        svsGetDataService.setCategory(data);
-        vm.suggestedCategories = _.difference(_.map(Categories, 'name'), _.map(vm.usersCategories, 'name'));
+    $scope.addCategory = function (category) {
+        // edit existing data if key is present
+        var categoryData = userCategories.$getRecord(category.key) || {};
+
+        categoryData.name = category.name;
+        categoryData.budget = category.budget;
+
+        // save existing data if key is present, else add
+        category.key ? userCategories.$save(categoryData) : userCategories.$add(categoryData);
+
+        // wait to load page so vm.suggestedCategories updates
+        $timeout(function () {
+            vm.suggestedCategories = _.difference(_.map(DefaultCategories, 'name'), _.map(userCategories, 'name'));
+        });
         $scope.modal.hide();
     };
 
     function openEditModal(category) {
         $scope.category = {
             name: category.name,
-            budget: category.budget
+            budget: category.budget,
+            key: userCategories.$keyAt(category)
         };
         $scope.modal.show($scope.category);
 

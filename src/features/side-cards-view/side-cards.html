@@ -1,16 +1,16 @@
 <ion-view view-title="Card Settings">
     <ion-content>
-        <div class="row item item-divider">
-            <div>
+        <div class="item item-divider" ng-class="{ 'row': vm.usersCards.length}">
+            <div ng-if="vm.usersCards.length">
                 <span ng-click="vm.data.showDelete = !vm.data.showDelete;">
                     <span ng-if="!vm.data.showDelete">Delete</span>
                     <span ng-if="vm.data.showDelete">Done</span>
                 </span>
             </div>
-            <div style="padding-left: 100px;">
+            <div ng-style="{'padding-left': vm.usersCards.length ? '100px': 0}">
                 <span>My Cards</span>
             </div>
-            <div class="item-icon-right">
+            <div ng-if="vm.usersCards.length" class="item-icon-right">
                 <i class="icon ion-ios-plus-outline"
                    ng-click="vm.openAddModal()"></i>
             </div>
