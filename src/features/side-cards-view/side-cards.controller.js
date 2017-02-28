@@ -2,7 +2,7 @@ angular
     .module('app.sideCards')
     .controller('SideCardsCtrl', SideCardsCtrl);
 
-function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, $timeout) {
+function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, Transactions, $timeout) {
     var vm = this;
 
     vm.openEditModal = openEditModal;
@@ -22,6 +22,15 @@ function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, $timeout) {
         // wait to load page so vm.suggestedCards updates
         $timeout(function () {
             vm.suggestedCards = _.difference(_.map(DefaultCards, 'name'), _.map(userCards, 'name'));
+        });
+
+        // to make all old transaction with that card name to other
+        _.forEach(Transactions, function (d) {
+            if (d.card.id === card.$id) {
+                d.card.name = "other";
+
+                Transactions.$save(d)
+            };
         });
     }
 

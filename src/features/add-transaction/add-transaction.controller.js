@@ -4,34 +4,37 @@
         .module('app.addTransaction')
         .controller('AddTransactionController', AddTransactionController);
 
-    function AddTransactionController(svsGetDataService) {
+    function AddTransactionController(Categories, Cards, $firebaseArray, rootRef, Auth) {
         var vm = this;
-        var cards;
-        var categories;
 
         vm.addTransaction = addTransaction;
 
         init();
 
         function init() {
-            categories = svsGetDataService.getCategories();
-            cards = svsGetDataService.getCards();
-
-            vm.categories = {
-                options: _.map(categories, _.property('name'))
-            };
-
-            vm.cards = {
-                options: _.map(cards, _.property('name'))
-            };
+            vm.categories = Categories;
+            vm.cards = Cards;
+            setDefaults();
         }
 
-        function addTransaction(obj) {
-            var transaction = angular.copy(obj);
+        function setDefaults() {
+            vm.selectedCategory = Categories[0];
+            vm.selectedCard = Cards[0];
+            vm.selectedAmount = '';
+            vm.selectedDate = new Date();
+            vm.selectedDescription = ''
+        }
 
-            _.set(transaction, 'date', obj.date.toISOString());
+        function addTransaction() {
+            var transaction = {
+                category: { name: vm.selectedCategory.name, id: vm.selectedCategory.$id },
+                card: { name: vm.selectedCard.name, id: vm.selectedCard.$id },
+                amount: vm.selectedAmount,
+                date: vm.selectedDate.getTime(),
+                description: vm.selectedDescription
+            };
 
-            svsGetDataService.putTransaction(transaction)
+            $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('transactions')).$add(transaction);
         }
     }
 }(angular));

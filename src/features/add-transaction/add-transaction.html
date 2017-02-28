@@ -5,35 +5,36 @@
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Amount ($)</span>
                     <input type="number"
-                           ng-model="vm.formValues.amount" required>
+                           ng-model="vm.selectedAmount" required>
                 </label>
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Description</span>
                     <input type="text"
-                           ng-model="vm.formValues.description" required>
+                           ng-model="vm.selectedDescription" required>
                 </label>
                 <label class="item item-input item-stacked-label">
                     <span class="input-label">Date</span>
                     <input type="date"
-                           ng-model="vm.formValues.date" required>
+                           ng-model="vm.selectedDate"
+                           value="{{vm.selectedDate | date:'yyyy-MM-dd'}}" required>
                 </label>
                 <label class="item item-input item-select">
                     <div class="input-label">
                         Category
                     </div>
-                    <select ng-model="vm.formValues.category" required
-                            ng-options="category for category in vm.categories.options"></select>
+                    <select ng-model="vm.selectedCategory" required
+                            ng-options="category.name for category in vm.categories track by category.$id"></select>
                 </label>
                 <label class="item item-input item-select">
                     <div class="input-label">
                         Credit Card
                     </div>
-                    <select ng-model="vm.formValues.card" required
-                            ng-options="card for card in vm.cards.options"></select>
+                    <select ng-model="vm.selectedCard" required
+                            ng-options="card.name for card in vm.cards track by card.$id"></select>
                 </label>
                 <button class="button button-full button-positive"
                         ng-disabled="addTransactionForm.$invalid"
-                        ng-click="vm.addTransaction(vm.formValues)">
+                        ng-click="vm.addTransaction()">
                     Submit
                 </button>
             </div>

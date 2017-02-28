@@ -10,9 +10,7 @@
 
         function init() {
             vm.cardName = $stateParams.creditcard;
-            vm.data = svsGetDataService.getCreditCardsTransactionData($stateParams.creditcard);
+            vm.data = svsGetDataService.getCreditCardsTransactionData($stateParams.creditcard, $stateParams.transactions);
         }
-
-
     }
 }(angular));

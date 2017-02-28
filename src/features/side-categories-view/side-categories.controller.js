@@ -2,7 +2,7 @@ angular
     .module('app.sideCategories')
     .controller('SideCategoriesCtrl', SideCategoriesCtrl);
 
-function SideCategoriesCtrl($ionicModal, $scope, DefaultCategories, userCategories, $timeout) {
+function SideCategoriesCtrl($ionicModal, $scope, DefaultCategories, userCategories, Transactions, $timeout) {
     var vm = this;
 
     vm.openEditModal = openEditModal;
@@ -22,6 +22,16 @@ function SideCategoriesCtrl($ionicModal, $scope, DefaultCategories, userCategori
         // wait to load page so vm.suggestedCategories updates
         $timeout(function () {
             vm.suggestedCategories = _.difference(_.map(DefaultCategories, 'name'), _.map(userCategories, 'name'));
+        });
+
+        // to make all old transaction with that category name to other
+        _.forEach(Transactions, function (d) {
+            if (d.category.id === category.$id) {
+                d.category.name = "other";
+
+                Transactions.$save(d)
+            }
+            ;
         });
     }
 

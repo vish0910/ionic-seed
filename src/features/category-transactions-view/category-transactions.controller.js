@@ -10,9 +10,7 @@
 
         function init() {
             vm.categoryName = $stateParams.category;
-            vm.data = svsGetDataService.getCategoriesTransactionData($stateParams.category);
+            vm.data = svsGetDataService.getCategoriesTransactionData($stateParams.category, $stateParams.transactions);
         }
-
-
     }
 }(angular));
