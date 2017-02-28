@@ -95,6 +95,14 @@
                 _.remove(categories, {
                     name: data.name
                 });
+
+                // to make all old transaction with that category name to other
+                _.map(transaction, function (d) {
+                    if (d.category === data.name) {
+                        d.category = "other"
+                    }
+                    return d;
+                })
             }
         }
 
@@ -113,6 +121,14 @@
                 _.remove(cards, {
                     name: data.name
                 });
+
+                // to make all old transaction with that card name to other
+                _.map(transaction, function (d) {
+                    if (d.card === data.name) {
+                        d.card = "other"
+                    }
+                    return d;
+                })
             }
         }
 
@@ -138,6 +154,9 @@
             var data =
                 _.chain(transaction)
                     .groupBy('card')
+                    .omit(function (transaction) {
+                        return transaction[0].card === 'other'
+                    })
                     .map(function (value, key) {
                         return {
                             dueDate: Date.now(),
@@ -180,6 +199,9 @@
             var data =
                 _.chain(transaction)
                     .groupBy('category')
+                    .omit(function (transaction) {
+                        return transaction[0].category === 'other'
+                    })
                     .map(function (value, key) {
                         return {
                             budget: _.filter(categories, { 'name': key })[0].budget,

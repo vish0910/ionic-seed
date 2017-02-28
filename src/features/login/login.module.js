@@ -1,4 +1,4 @@
-(function(angular) {
+(function (angular) {
     'use strict';
     angular
         .module('app.login', [])
@@ -10,13 +10,21 @@
             .state('app.login', {
                 url: '/login',
                 views: {
-                    'loginView': {
+                    'appView': {
                         templateUrl: 'features/login/login.html',
-                        controller: 'LoginController as loginVm'
+                        controller: 'LoginController as vm'
                     }
                 },
                 data: {
                     authenticate: false
+                },
+                resolve: {
+                    // controller will not be loaded until $waitForAuth resolves
+                    currentAuth: ['Auth',
+                        function (Auth) {
+                            // $waitForAuth returns a promise so the resolve waits for it to complete
+                            return Auth.$waitForSignIn();
+                        }]
                 }
             });
     }
