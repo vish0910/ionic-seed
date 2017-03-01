@@ -16,6 +16,18 @@
                 },
                 data: {
                     authenticate: false
+                },
+                resolve: {
+                    DefaultUtilities: function($firebaseArray, rootRef) {
+                        return $firebaseArray(rootRef.child('utilities')).$loaded().then(function(cards){
+                            return cards;
+                        });
+                    },
+                    userUtilities: function($firebaseArray, rootRef, Auth) {
+                        return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('utilities')).$loaded().then(function(cards){
+                            return cards;
+                        });
+                    }
                 }
             });
     }

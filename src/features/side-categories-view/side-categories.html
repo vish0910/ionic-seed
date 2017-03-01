@@ -1,16 +1,16 @@
 <ion-view view-title="Category Settings">
     <ion-content>
-        <div class="row item item-divider">
-            <div>
+        <div class="item item-divider" ng-class="{ 'row': vm.usersCategories.length}">
+            <div ng-if="vm.usersCategories.length">
                 <span ng-click="vm.data.showDelete = !vm.data.showDelete;">
                     <span ng-if="!vm.data.showDelete">Delete</span>
                     <span ng-if="vm.data.showDelete">Done</span>
                 </span>
             </div>
-            <div style="padding-left: 100px;">
+            <div ng-style="{'padding-left': vm.usersCategories.length ? '100px': 0}">
                 <span>My Categories</span>
             </div>
-            <div class="item-icon-right">
+            <div ng-if="vm.usersCategories.length" class="item-icon-right">
                 <i class="icon ion-ios-plus-outline"
                    ng-click="vm.openAddModal()"></i>
             </div>

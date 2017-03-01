@@ -4,12 +4,12 @@
         .module('app.transactions')
         .controller('TransactionsController', TransactionsController);
 
-    function TransactionsController(svsGetDataService) {
+    function TransactionsController(Transactions) {
         var vm = this;
         init();
 
         function init() {
-            vm.data = svsGetDataService.getTransaction();
+            vm.data = Transactions;
         }
 
     }

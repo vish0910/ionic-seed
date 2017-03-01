@@ -1,6 +1,25 @@
 <ion-view view-title="User Settings">
-  <ion-content>
-    User Settings here
-  </ion-content>
+    <ion-content>
+        <div class="item item-divider">
+            <span>My Account</span>
+        </div>
+        <ion-list>
+            <ion-item>
+                Display Name
+                <span class="item-note"
+                      ng-click="vm.showNamePopup()">{{vm.userInfo.displayName}}
+                      <i class="icon ion-chevron-right">
+                      </i>
+                </span>
+            </ion-item>
+            <ion-item>
+                Email
+                <span class="item-note"
+                      ng-click="vm.showEmailPopup()">{{vm.userInfo.email}}
+                      <i class="icon ion-chevron-right">
+                      </i>
+                </span>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>
-

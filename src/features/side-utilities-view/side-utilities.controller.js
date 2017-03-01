@@ -2,19 +2,8 @@ angular
     .module('app.sideUtilities')
     .controller('SideUtilitiesCtrl', SideUtilitiesCtrl);
 
-function SideUtilitiesCtrl(svsGetDataService, $ionicModal, $scope) {
+function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities, $timeout) {
     var vm = this;
-    var Utilities = [
-        { name: 'Internet' },
-        { name: 'Car Insurance' },
-        { name: 'Home Insurance' },
-        { name: 'Home Rent' },
-        { name: 'Health Insurance' },
-        { name: 'Dental Insurance' },
-        { name: 'Electricity' },
-        { name: 'Telephone' },
-        { name: 'Mobile' }
-    ];
 
     vm.openEditModal = openEditModal;
     vm.openAddModal = openAddModal;
@@ -23,13 +12,17 @@ function SideUtilitiesCtrl(svsGetDataService, $ionicModal, $scope) {
     init();
 
     function init() {
-        vm.usersUtilities = svsGetDataService.getUtilities();
-        vm.suggestedUtilities = _.difference(_.map(Utilities, 'name'), _.map(vm.usersUtilities, 'name'));
+        vm.usersUtilities = userUtilities;
+        vm.suggestedUtilities = _.difference(_.map(DefaultUtilities, 'name'), _.map(userUtilities, 'name'));
     }
 
     function deleteUtility(utility) {
-        svsGetDataService.deleteUtility(utility);
-        vm.suggestedUtilities = _.difference(_.map(Utilities, 'name'), _.map(vm.usersUtilities, 'name'));
+        userUtilities.$remove(utility); // remove utility from firebase
+
+        // wait to load page so vm.suggestedUtilities updates
+        $timeout(function () {
+            vm.suggestedUtilities = _.difference(_.map(DefaultUtilities, 'name'), _.map(userUtilities, 'name'));
+        });
     }
 
     $ionicModal.fromTemplateUrl('features/side-utilities-view/add-utility.html', {
@@ -40,16 +33,28 @@ function SideUtilitiesCtrl(svsGetDataService, $ionicModal, $scope) {
         $scope.modal = modal;
     });
 
-    $scope.addUtility = function (data) {
-        svsGetDataService.setUtility(data);
-        vm.suggestedUtilities = _.difference(_.map(Utilities, 'name'), _.map(vm.usersUtilities, 'name'));
+    $scope.addUtility = function (utility) {
+        // edit existing data if key is present
+        var utilityData = userUtilities.$getRecord(utility.key) || {};
+
+        utilityData.name = utility.name;
+        utilityData.dueDate = utility.dueDate.getTime();
+
+        // save existing data if key is present, else add
+        utility.key ? userUtilities.$save(utilityData) : userUtilities.$add(utilityData);
+
+        // wait to load page so vm.suggestedUtilities updates
+        $timeout(function () {
+            vm.suggestedUtilities = _.difference(_.map(DefaultUtilities, 'name'), _.map(userUtilities, 'name'));
+        });
         $scope.modal.hide();
     };
 
     function openEditModal(utility) {
         $scope.utility = {
             name: utility.name,
-            dueDate: new Date(utility.dueDate)
+            dueDate: new Date(utility.dueDate),
+            key: userUtilities.$keyAt(utility)
         };
         $scope.modal.show($scope.utility);
 
@@ -69,5 +74,4 @@ function SideUtilitiesCtrl(svsGetDataService, $ionicModal, $scope) {
         }
         $scope.modal.show($scope.utility);
     }
-
 }

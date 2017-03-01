@@ -2,21 +2,8 @@ angular
     .module('app.sideCards')
     .controller('SideCardsCtrl', SideCardsCtrl);
 
-function SideCardsCtrl(svsGetDataService, $ionicModal, $scope) {
+function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, Transactions, $timeout) {
     var vm = this;
-    var Cards = [
-        { name: 'Barclaycard MasterCard' },
-        { name: 'Chase Freedom' },
-        { name: 'Blue Cash Amex' },
-        { name: 'Citi Double Cash' },
-        { name: 'Discover it' },
-        { name: 'Chase' },
-        { name: 'Chase Slate' },
-        { name: 'Bank Of America' },
-        { name: 'Citi' },
-        { name: 'American Express' },
-        { name: 'Chase Sapphire' }
-    ];
 
     vm.openEditModal = openEditModal;
     vm.openAddModal = openAddModal;
@@ -25,13 +12,26 @@ function SideCardsCtrl(svsGetDataService, $ionicModal, $scope) {
     init();
 
     function init() {
-        vm.usersCards = svsGetDataService.getCards();
-        vm.suggestedCards = _.difference(_.map(Cards, 'name'), _.map(vm.usersCards, 'name'));
+        vm.usersCards = userCards;
+        vm.suggestedCards = _.difference(_.map(DefaultCards, 'name'), _.map(userCards, 'name'));
     }
 
     function deleteCard(card) {
-        svsGetDataService.deleteCard(card);
-        vm.suggestedCards = _.difference(_.map(Cards, 'name'), _.map(vm.usersCards, 'name'));
+        userCards.$remove(card); // remove card from firebase
+
+        // wait to load page so vm.suggestedCards updates
+        $timeout(function () {
+            vm.suggestedCards = _.difference(_.map(DefaultCards, 'name'), _.map(userCards, 'name'));
+        });
+
+        // to make all old transaction with that card name to other
+        _.forEach(Transactions, function (d) {
+            if (d.card.id === card.$id) {
+                d.card.name = "other";
+
+                Transactions.$save(d)
+            };
+        });
     }
 
     $ionicModal.fromTemplateUrl('features/side-cards-view/add-card.html', {
@@ -42,9 +42,21 @@ function SideCardsCtrl(svsGetDataService, $ionicModal, $scope) {
         $scope.modal = modal;
     });
 
-    $scope.addCard = function (data) {
-        svsGetDataService.setCard(data);
-        vm.suggestedCards = _.difference(_.map(Cards, 'name'), _.map(vm.usersCards, 'name'));
+    $scope.addCard = function (card) {
+        // edit existing data if key is present
+        var cardData = userCards.$getRecord(card.key) || {};
+
+        cardData.name = card.name;
+        cardData.budget = card.budget;
+        cardData.dueDate = card.dueDate.getTime();
+
+        // save existing data if key is present, else add
+        card.key ? userCards.$save(cardData) : userCards.$add(cardData);
+
+        // wait to load page so vm.suggestedCards updates
+        $timeout(function () {
+            vm.suggestedCards = _.difference(_.map(DefaultCards, 'name'), _.map(userCards, 'name'));
+        });
         $scope.modal.hide();
     };
 
@@ -52,7 +64,8 @@ function SideCardsCtrl(svsGetDataService, $ionicModal, $scope) {
         $scope.card = {
             name: card.name,
             budget: card.budget,
-            dueDate: new Date(card.dueDate)
+            dueDate: new Date(card.dueDate),
+            key: userCards.$keyAt(card)
         };
         $scope.modal.show($scope.card);
 
@@ -72,5 +85,4 @@ function SideCardsCtrl(svsGetDataService, $ionicModal, $scope) {
         }
         $scope.modal.show($scope.card);
     }
-
 }

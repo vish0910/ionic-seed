@@ -16,6 +16,23 @@
                 },
                 data: {
                     authenticate: false
+                },
+                resolve: {
+                    DefaultCards: function($firebaseArray, rootRef) {
+                        return $firebaseArray(rootRef.child('cards')).$loaded().then(function(cards){
+                            return cards;
+                        });
+                    },
+                    userCards: function($firebaseArray, rootRef, Auth) {
+                        return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('cards')).$loaded().then(function(cards){
+                            return cards;
+                        });
+                    },
+                    Transactions: function($firebaseArray, rootRef, Auth) {
+                        return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('transactions')).$loaded().then(function(transactions){
+                            return transactions;
+                        });
+                    }
                 }
             });
     }

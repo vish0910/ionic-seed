@@ -4,9 +4,10 @@
         .module('app.home')
         .controller('HomeController', HomeController);
 
-    function HomeController ($ionicLoading, Auth) {
+    function HomeController ($ionicLoading, Auth, $state, $ionicSideMenuDelegate) {
         var vm = this;
         vm.logout = logout;
+        vm.gotToUserProfile = gotToUserProfile;
 
         function logout() {
             console.log("Logging out from the app");
@@ -14,6 +15,11 @@
                 template: 'Logging Out...'
             });
             Auth.$signOut();
+        }
+
+        function gotToUserProfile(){
+            $ionicSideMenuDelegate.toggleLeft();
+            $state.go('app.home.user')
         }
     }
 } (angular));

@@ -16,6 +16,9 @@
                 },
                 data: {
                     authenticate: false
+                },
+                params: {
+                    transactions: '='
                 }
             });
     }
