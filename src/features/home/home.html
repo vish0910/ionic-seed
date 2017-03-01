@@ -11,46 +11,47 @@
                 </ion-nav-buttons>
             </ion-nav-bar>
 
-            <ion-tabs class="tabs-icon-only tabs-background-calm">
-                <ion-tab icon-on="ion-social-usd"
+            <ion-tabs class="tabs-background-calm tabs-icon-top">
+                <ion-tab title="Credit Cards"
+                         icon-on="ion-social-usd"
                          icon-off="ion-social-usd-outline"
                          ui-sref="app.home.creditcards">
                     <ion-nav-view name="creditcardsView"></ion-nav-view>
                 </ion-tab>
-                <ion-tab icon-on="ion-ios-filing"
+                <ion-tab title="Categories"
+                         icon-on="ion-ios-filing"
                          icon-off="ion-ios-filing-outline"
                          ui-sref="app.home.categories">
                     <ion-nav-view name="categoriesView"></ion-nav-view>
                 </ion-tab>
-                <ion-tab icon-on="ion-plus"
+                <ion-tab title="Add transaction"
+                         icon-on="ion-plus"
                          icon-off="ion-plus"
                          ui-sref="app.home.add-transaction">
                     <ion-nav-view name="addTransactionView"></ion-nav-view>
                 </ion-tab>
-                <ion-tab icon-on="ion-ios-alarm"
+                <ion-tab title="Reminders"
+                         icon-on="ion-ios-alarm"
                          icon-off="ion-ios-alarm-outline"
                          ui-sref="app.home.reminders">
                     <ion-nav-view name="remindersView"></ion-nav-view>
                 </ion-tab>
-                <ion-tab icon-on="ion-ios-list"
+                <ion-tab title="All transactions"
+                         icon-on="ion-ios-list"
                          icon-off="ion-ios-list-outline"
                          ui-sref="app.home.transactions">
                     <ion-nav-view name="transactionsView"></ion-nav-view>
                 </ion-tab>
-                <ion-tab class="tab-hidden"
-                         on-deselect="clearHistory()">
+                <ion-tab class="tab-hidden">
                     <ion-nav-view name="sideCardsView"></ion-nav-view>
                 </ion-tab>
-                <ion-tab class="tab-hidden"
-                         on-deselect="clearHistory()">
+                <ion-tab class="tab-hidden">
                     <ion-nav-view name="sideCategoryView"></ion-nav-view>
                 </ion-tab>
-                <ion-tab class="tab-hidden"
-                         on-deselect="clearHistory()">
+                <ion-tab class="tab-hidden">
                     <ion-nav-view name="sideUtilitiesView"></ion-nav-view>
                 </ion-tab>
-                <ion-tab class="tab-hidden"
-                         on-deselect="clearHistory()">
+                <ion-tab class="tab-hidden">
                     <ion-nav-view name="sideUserView"></ion-nav-view>
                 </ion-tab>
                 <ion-tab class="tab-hidden">

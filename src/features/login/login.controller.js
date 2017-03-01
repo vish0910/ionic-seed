@@ -24,8 +24,10 @@
                 Auth.$createUserWithEmailAndPassword(user.email, user.password)
                     .then(function (userData) {
                         rootRef.child("users").child(userData.uid).set({
-                            email: user.email,
-                            displayName: user.displayname
+                            userInfo: {
+                                email: user.email,
+                                displayName: user.displayname
+                            }
                         });
                         $ionicLoading.hide();
                         $scope.modal.hide();

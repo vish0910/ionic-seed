@@ -11,11 +11,18 @@
                 views: {
                     'sideUserView': {
                         templateUrl: 'features/side-users-view/side-users.html',
-                        controller: 'SideUsersCtrl as Vm'
+                        controller: 'SideUsersCtrl as vm'
                     }
                 },
                 data: {
                     authenticate: false
+                },
+                resolve: {
+                    UserInfo: function($firebaseArray, rootRef, Auth) {
+                        return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('userInfo')).$loaded().then(function(userInfo){
+                            return userInfo;
+                        });
+                    }
                 }
             });
     }
