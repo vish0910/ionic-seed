@@ -14,6 +14,7 @@
         'ui.router',
         'ui.bootstrap',
         'firebase',
+        'ionic-toast',
 
         // services
         'app.auth',

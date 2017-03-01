@@ -4,7 +4,7 @@
         .module('app.addTransaction')
         .controller('AddTransactionController', AddTransactionController);
 
-    function AddTransactionController(Categories, Cards, $firebaseArray, rootRef, Auth) {
+    function AddTransactionController(Categories, Cards, $firebaseArray, rootRef, Auth, ionicToast, $state) {
         var vm = this;
 
         vm.addTransaction = addTransaction;
@@ -34,7 +34,11 @@
                 description: vm.selectedDescription
             };
 
-            $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('transactions')).$add(transaction);
+            $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('transactions')).$add(transaction)
+                .then(function () {
+                    ionicToast.show('The transaction is added successfully', 'bottom', false, 2500);
+                    $state.go('app.home.transactions')
+                });
         }
     }
 }(angular));
