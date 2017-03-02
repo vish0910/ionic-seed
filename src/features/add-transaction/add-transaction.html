@@ -1,42 +1,81 @@
 <ion-view cache-view="false" view-title="Add Transaction" class="add-transaction">
     <ion-content scroll="false">
-        <form name="addTransactionForm">
+        <form novalidate name="myform">
             <div class="list">
-                <label class="item item-input item-stacked-label">
-                    <span class="input-label">Amount ($)</span>
+                <label class="item item-input item-stacked-label"
+                       ng-class="{'red-bottom': myform.amount.$invalid && myform.amount.$touched,
+                    'green-bottom': myform.amount.$valid && myform.amount.$touched}">
+                    <span class="input-label">Amount ($)&nbsp;*</span>
                     <input type="number"
-                           ng-model="vm.selectedAmount" required>
+                           ng-model="vm.selectedAmount"
+                           name="amount"
+                           ng-required="true"/>
                 </label>
-                <label class="item item-input item-stacked-label">
-                    <span class="input-label">Description</span>
+                <p class="error" ng-show="myform.amount.$invalid && myform.amount.$touched">
+                    Please enter valid amount
+                </p>
+
+                <label class="item item-input item-stacked-label"
+                       ng-class="{'red-bottom': myform.description.$invalid && myform.description.$touched,
+                    'green-bottom': myform.description.$valid && myform.description.$touched}">
+                    <span class="input-label">Description&nbsp;*</span>
                     <input type="text"
-                           ng-model="vm.selectedDescription" required>
+                           ng-model="vm.selectedDescription"
+                           name="description"
+                           ng-required="true"/>
                 </label>
-                <label class="item item-input item-stacked-label">
-                    <span class="input-label">Date</span>
+                <p class="error" ng-show="myform.description.$invalid && myform.description.$touched">
+                    Please Enter valid description
+                </p>
+
+                <label class="item item-input item-stacked-label"
+                       ng-class="{'red-bottom': myform.date.$invalid && myform.date.$touched,
+                    'green-bottom': myform.date.$valid && myform.date.$touched}">
+                    <span class="input-label">Date&nbsp;*</span>
                     <input type="date"
                            ng-model="vm.selectedDate"
-                           value="{{vm.selectedDate | date:'yyyy-MM-dd'}}" required>
+                           value="{{vm.selectedDate | date:'yyyy-MM-dd'}}"
+                           name="date"
+                           ng-required="true"/>
                 </label>
-                <label class="item item-input item-select">
+                <p class="error" ng-show="myform.date.$invalid && myform.date.$touched">
+                    Please select valid date
+                </p>
+                <br>
+
+                <label class="item item-input item-select"
+                       ng-class="{'red-bottom': myform.category.$invalid && myform.category.$touched,
+                    'green-bottom': myform.category.$valid && myform.category.$touched}">
                     <div class="input-label">
-                        Category
+                        Category&nbsp;*
                     </div>
-                    <select ng-model="vm.selectedCategory" required
+                    <select ng-model="vm.selectedCategory"
+                            name="category"
+                            ng-required="true"
                             ng-options="category.name for category in vm.categories track by category.$id"></select>
                 </label>
-                <label class="item item-input item-select">
+                <br>
+
+                <label class="item item-input item-select"
+                       ng-class="{'red-bottom': myform.card.$invalid && myform.card.$touched,
+                    'green-bottom': myform.card.$valid && myform.card.$touched}">
                     <div class="input-label">
-                        Credit Card
+                        Credit Card&nbsp;*
                     </div>
-                    <select ng-model="vm.selectedCard" required
+                    <select ng-model="vm.selectedCard"
+                            name="card"
+                            ng-required="true"
                             ng-options="card.name for card in vm.cards track by card.$id"></select>
                 </label>
-                <button class="button button-full button-positive"
-                        ng-disabled="addTransactionForm.$invalid"
-                        ng-click="vm.addTransaction()">
-                    Submit
-                </button>
+
+                <br>
+                <div class="text-center">
+                    <button class="button button-positive submit-button"
+                            ng-disabled="myform.$invalid"
+                            ng-click="vm.addTransaction()">
+                        Submit
+                    </button>
+                </div>
             </div>
         </form>
     </ion-content>
