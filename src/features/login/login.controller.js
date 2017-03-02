@@ -15,7 +15,6 @@
         });
 
         vm.createUser = function (user) {
-            console.log("Create User Function called");
             if (user && user.email && user.password && user.displayname) {
                 $ionicLoading.show({
                     template: 'Signing Up...'
@@ -31,12 +30,12 @@
                         });
                         $ionicLoading.hide();
                         $scope.modal.hide();
+                        $state.go('app.home.categories');
                     }).catch(function (error) {
                     alert("Error: " + error);
                     $ionicLoading.hide();
                 });
-            } else
-                alert("Please fill all details");
+            }
         };
 
         vm.signIn = function (user) {
