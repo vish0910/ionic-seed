@@ -18,20 +18,26 @@
                     authenticate: false
                 },
                 resolve: {
-                    DefaultCategories: function($firebaseArray, rootRef) {
-                        return $firebaseArray(rootRef.child('categories')).$loaded().then(function(categories){
-                            return categories;
-                        });
+                    DefaultCategories: function ($firebaseArray, rootRef, Auth) {
+                        return Auth.$requireSignIn().then(function () {
+                            return $firebaseArray(rootRef.child('categories')).$loaded().then(function(categories){
+                                return categories;
+                            });
+                        })
                     },
-                    userCategories: function($firebaseArray, rootRef, Auth) {
-                        return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('categories')).$loaded().then(function(categories){
-                            return categories;
-                        });
+                    userCategories: function ($firebaseArray, rootRef, Auth) {
+                        return Auth.$requireSignIn().then(function () {
+                            return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('categories')).$loaded().then(function (categories) {
+                                return categories;
+                            });
+                        })
                     },
-                    Transactions: function($firebaseArray, rootRef, Auth) {
-                        return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('transactions')).$loaded().then(function(transactions){
-                            return transactions;
-                        });
+                    Transactions: function ($firebaseArray, rootRef, Auth) {
+                        return Auth.$requireSignIn().then(function () {
+                            return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('transactions')).$loaded().then(function (transactions) {
+                                return transactions;
+                            });
+                        })
                     }
                 }
             });

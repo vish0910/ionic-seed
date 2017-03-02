@@ -13,6 +13,5 @@
 
     // @ngInject
     function config($httpProvider) {
-        $httpProvider.interceptors.push('AuthInterceptor');
     }
 }(angular));
