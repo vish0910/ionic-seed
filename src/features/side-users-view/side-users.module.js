@@ -19,8 +19,10 @@
                 },
                 resolve: {
                     UserInfo: function($firebaseArray, rootRef, Auth) {
-                        return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('userInfo')).$loaded().then(function(userInfo){
-                            return userInfo;
+                        return Auth.$requireSignIn().then(function () {
+                            return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('userInfo')).$loaded().then(function(userInfo){
+                                return userInfo;
+                            });
                         });
                     }
                 }

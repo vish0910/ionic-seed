@@ -1,23 +1,77 @@
-<ion-modal-view>
+<ion-modal-view class="signup">
     <ion-header-bar class="bar bar-header bar-positive">
         <h1 class="title">Create New Account</h1>
         <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
     </ion-header-bar>
     <ion-content class="padding">
-        <div class="list">
-            <label class="item item-input">
-                <span class="input-label">Email Address</span>
-                <input ng-model="user.email" type="text">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Passsword</span>
-                <input ng-model="user.password" type="password">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Display Name</span>
-                <input ng-model="user.displayname" type="text">
-            </label>
-            <button class="button button-full button-positive" ng-click="vm.createUser(user)">Create</button>
-        </div>
+        <form novalidate name="myform">
+            <div class="list">
+                <label class="item item-input item-stacked-label"
+                       ng-class="{'red-bottom': myform.email.$invalid && myform.email.$touched,
+                    'green-bottom': myform.email.$valid && myform.email.$touched}">
+                    <span class="input-label">Email Address&nbsp;*</span>
+                    <input type="email"
+                           name="email"
+                           ng-model="user.email"
+                           ng-required="true"/>
+                </label>
+                <p class="error" ng-show="myform.email.$invalid && myform.email.$touched">
+                    Enter valid email address
+                </p>
+                <br>
+
+                <label class="item item-input item-stacked-label"
+                       ng-class="{'red-bottom': myform.password.$invalid && myform.password.$touched,
+                    'green-bottom': myform.password.$valid && myform.password.$touched}">
+                    <span class="input-label">Password&nbsp;*</span>
+                    <input ng-model="user.password"
+                           type="password"
+                           name="password"
+                           ng-required="true"
+                           ng-minlength="6">
+                </label>
+                <p class="error" ng-show="myform.password.$invalid && myform.password.$touched">
+                    Enter a minimum 6 digit password
+                </p>
+                <br>
+
+                <label class="item item-input item-stacked-label"
+                       ng-class="{'red-bottom': myform.password1.$touched && (user.confirmPassword !== user.password),
+                    'green-bottom': myform.password1.$touched && (user.confirmPassword === user.password)}">
+                    <span class="input-label">Confirm Password&nbsp;*</span>
+                    <input ng-model="user.confirmPassword"
+                           type="password"
+                           name="password1"
+                           ng-required="true">
+                </label>
+                <p class="error"
+                   ng-show="myform.password1.$touched && (user.confirmPassword !== user.password)">
+                    Password is not matching
+                </p>
+                <br>
+
+                <label class="item item-input item-stacked-label"
+                       ng-class="{'red-bottom': myform.displayname.$touched && myform.displayname.$invalid,
+                    'green-bottom': myform.displayname.$touched && myform.displayname.$valid}">
+                    <span class="input-label">Display Name&nbsp;*</span>
+                    <input ng-model="user.displayname"
+                           name="displayname"
+                           ng-required="true"
+                           type="text"
+                           ng-minlength="6">
+                </label>
+                <p class="error"
+                   ng-show="myform.displayname.$invalid && myform.displayname.$touched">
+                    Enter a minimum 6 digit display name
+                </p>
+                <br>
+                <div class="text-center">
+                    <button class="button button-positive create-button"
+                            ng-disabled="myform.$invalid"
+                            ng-click="vm.createUser(user)">Create
+                    </button>
+                </div>
+            </div>
+        </form>
     </ion-content>
 </ion-modal-view>

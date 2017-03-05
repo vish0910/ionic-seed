@@ -1,4 +1,4 @@
-<ion-view view-title="User Settings">
+<ion-view view-title="User Settings" class="side-user">
     <ion-content>
         <div class="item item-divider">
             <span>My Account</span>
@@ -16,6 +16,14 @@
                 Email
                 <span class="item-note"
                       ng-click="vm.showEmailPopup()">{{vm.userInfo.email}}
+                      <i class="icon ion-chevron-right">
+                      </i>
+                </span>
+            </ion-item>
+            <ion-item>
+                Password
+                <span class="item-note"
+                      ng-click="vm.showPasswordPopup()">{{vm.userInfo.password}}
                       <i class="icon ion-chevron-right">
                       </i>
                 </span>

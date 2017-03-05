@@ -16,21 +16,76 @@
 
 }
 
+.signup {
+    label {
+        border-top-width: 0;
+        border-left-width: 0;
+        border-right-width: 0;
+    }
+
+    .red-bottom {
+        border-bottom: 1px solid red;
+    }
+
+    .green-bottom {
+        border-bottom: 1px solid green;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .create-button {
+        width: 150px;
+        height: 50px
+    }
+}
+
+.add-transaction {
+    label {
+        border-top-width: 0;
+        border-left-width: 0;
+        border-right-width: 0;
+    }
+
+    .list {
+        padding: 10px;
+    }
+
+    .red-bottom {
+        border-bottom: 1px solid red;
+    }
+
+    .green-bottom {
+        border-bottom: 1px solid green;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .submit-button {
+        width: 150px;
+        height: 50px
+    }
+}
+
 .icon-circle {
     width: 75px;
     height: 75px;
-    font-size:50px;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
+    font-size: 50px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
     border-radius: 50%;
     border: 1px solid #ebebeb;
     background: rgb(0, 161, 225);
     color: #fff;
-    text-align:center;
+    text-align: center;
 }
 
 .ion-plus {
-    border: 1px solid black;
+    border: 1px solid;
+    margin-top: 7px !important;
 }
 
 .transactions-page, .reminder-page {
