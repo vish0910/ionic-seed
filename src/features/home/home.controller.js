@@ -4,9 +4,12 @@
         .module('app.home')
         .controller('HomeController', HomeController);
 
-    function HomeController ($ionicLoading, Auth, $state, $ionicSideMenuDelegate) {
+    function HomeController($ionicLoading, Auth, $state, $timeout, $ionicSideMenuDelegate, UserInfo) {
         var vm = this;
         vm.logout = logout;
+        $timeout(function () {
+            vm.userInfo = UserInfo;
+        });
         vm.gotToUserProfile = gotToUserProfile;
 
         function logout() {
@@ -17,9 +20,9 @@
             Auth.$signOut();
         }
 
-        function gotToUserProfile(){
+        function gotToUserProfile() {
             $ionicSideMenuDelegate.toggleLeft();
             $state.go('app.home.user')
         }
     }
-} (angular));
+}(angular));
