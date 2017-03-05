@@ -38,7 +38,8 @@
         // components
         'svs.svsGrid',
         'svs.svsInfoCard',
-        'svs.svsGetData'
+        'svs.svsGetData',
+        'svs.svsNotificationService'
 
     ])
         .constant('AvailableLanguages', ['en-US', 'ru-RU', 'el-GR'])
@@ -52,11 +53,11 @@
     // @ngInject
     function firebaseConfig(){
         var config = {
-            apiKey: "AIzaSyC0YiWBTqSwVxpVvOBDMmqZEBM_ZXZOMwI",
-            authDomain: "up-money-f4f75.firebaseapp.com",
-            databaseURL: "https://up-money-f4f75.firebaseio.com",
-            storageBucket: "up-money-f4f75.appspot.com",
-            messagingSenderId: "423301772429"
+            apiKey: "AIzaSyAPXeVhrHM-WmM3fZTlCtJJwOBZ7iVal78",
+            authDomain: "up-money-92ce2.firebaseapp.com",
+            databaseURL: "https://up-money-92ce2.firebaseio.com",
+            storageBucket: "up-money-92ce2.appspot.com",
+            messagingSenderId: "864803585298"
         };
         firebase.initializeApp(config);
     }

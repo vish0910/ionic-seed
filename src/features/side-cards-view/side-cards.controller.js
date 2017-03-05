@@ -50,6 +50,13 @@ function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, Transaction
         cardData.budget = card.budget;
         cardData.dueDate = card.dueDate.getTime();
 
+        //For notifications
+        cardData.notification_id = cardData.dueDate;
+        cardData.notification = true;
+        cardData.recurring = true;
+
+        //TODO Create notification
+
         // save existing data if key is present, else add
         card.key ? userCards.$save(cardData) : userCards.$add(cardData);
 

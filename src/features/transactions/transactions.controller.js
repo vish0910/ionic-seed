@@ -1,4 +1,4 @@
-(function (angular) {
+(function (angular, _) {
     'use strict';
     angular
         .module('app.transactions')
@@ -13,4 +13,4 @@
         }
 
     }
-}(angular));
+}(angular, _));
