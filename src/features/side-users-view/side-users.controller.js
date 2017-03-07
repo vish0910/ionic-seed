@@ -28,7 +28,7 @@ function SideUsersCtrl(UserInfo, $scope, $ionicPopup, rootRef, Auth, ionicToast)
                 { text: 'Cancel' },
                 {
                     text: '<b>Save</b>',
-                    type: 'button-positive',
+                    type: 'button-dark',
                     onTap: function (e) {
                         if ($scope.data.displayName.length < 6) {
                             //don't allow the user to close unless he enters displayName
@@ -63,7 +63,7 @@ function SideUsersCtrl(UserInfo, $scope, $ionicPopup, rootRef, Auth, ionicToast)
                 { text: 'Cancel' },
                 {
                     text: '<b>Save</b>',
-                    type: 'button-positive',
+                    type: 'button-dark',
                     onTap: function (e) {
                         if (!$scope.data.email) {
                             //don't allow the user to close unless he enters displayName
@@ -104,7 +104,7 @@ function SideUsersCtrl(UserInfo, $scope, $ionicPopup, rootRef, Auth, ionicToast)
                 { text: 'Cancel' },
                 {
                     text: '<b>Save</b>',
-                    type: 'button-positive',
+                    type: 'button-dark',
                     onTap: function (e) {
                         if ($scope.data.password.length < 6) {
                             //don't allow the user to close unless he enters displayName
