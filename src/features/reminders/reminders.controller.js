@@ -98,11 +98,11 @@
             console.log(item);
             //Paid is set to true Open Transaction recorder
             //todo open modal only for card bills
-            if (item.budget) {
+            if (item.type == 'CARD') {
                 openAddTransactionModal(item);
             } else {
                 cleanPopover();
-                updateDueDate(item);
+                updateUserUtilities(item);
             }
         }
 
@@ -174,6 +174,7 @@
             //console.log(transaction);
             //svsGetDataService.putTransaction(transaction);
 
+            //TODO id of payement. Optional.
             var transaction = {
                 category: {name: PAYMENT_CATEGORY, id: PAYMENT_CATEGORY},
                 card: {name: item.name, id: item.$id},
@@ -191,21 +192,35 @@
             //TODO Calculate new duedate
             cleanModal();
             cleanPopover();
-            updateDueDate(item);
+
+            updateCard(item, transaction);
         }
 
-        function updateDueDate(item) {
-            var cardData = Cards.$getRecord(item.$id) || {};
+        function updateCard(item, transaction) {
+            var itemToBeUpdated = Cards.$getRecord(item.$id) || {};
 
-            console.log("object to be updated");
-            console.log(cardData);
-
-            cardData.dueDate = new Date(item.dueDate).next().month().getTime();
-
-            if (cardData.$id) {
-                Cards.$save(cardData);
+            if (Math.abs(transaction.amount) < item.amountDue) {
+                itemToBeUpdated.amountDue = _.get(itemToBeUpdated, 'amountDue', 0) + transaction.amount;
+            } else {
+                itemToBeUpdated.amountDue = _.get(itemToBeUpdated, 'amountDue', 0) + transaction.amount;
+                itemToBeUpdated.amountDue += _.get(itemToBeUpdated, 'pending', 0);
+                itemToBeUpdated.pending = 0;
+                itemToBeUpdated.dueDate = new Date(item.dueDate).next().month().getTime();
             }
+            updateItem(itemToBeUpdated, Cards);
+        }
 
+        function updateUserUtilities(item){
+            var itemToBeUpdated = userUtilities.$getRecord(item.$id) || {};
+
+            itemToBeUpdated.dueDate = new Date(item.dueDate).next().month().getTime();
+            updateItem(itemToBeUpdated, userUtilities);
+        }
+
+        function updateItem(itemToBeUpdated, Items) {
+            if (itemToBeUpdated.$id) {
+                Items.$save(itemToBeUpdated);
+            }
             $timeout(function () {
                 calculateRemainingDays();
             });

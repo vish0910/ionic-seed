@@ -18,14 +18,18 @@
                     authenticate: false
                 },
                 resolve: {
-                    Cards: function($firebaseArray, rootRef, Auth) {
-                        return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('cards')).$loaded().then(function(cards){
-                            return cards;
+                    Cards: function ($firebaseArray, rootRef, Auth) {
+                        return Auth.$requireSignIn().then(function () {
+                            return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('cards')).$loaded().then(function (cards) {
+                                return cards;
+                            });
                         });
                     },
-                    userUtilities: function($firebaseArray, rootRef, Auth) {
-                        return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('utilities')).$loaded().then(function(cards){
-                            return cards;
+                    userUtilities: function ($firebaseArray, rootRef, Auth) {
+                        return Auth.$requireSignIn().then(function () {
+                            return $firebaseArray(rootRef.child('users').child(Auth.$getAuth().uid).child('utilities')).$loaded().then(function (cards) {
+                                return cards;
+                            });
                         });
                     }
                 }

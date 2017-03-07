@@ -42,7 +42,7 @@ function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities,
         utilityData.dueDate = utility.dueDate.getTime();
 
         //For notifications
-        utilityData.notification_id = utilityData.dueDate;
+        utilityData.notification_id = new Date().getTime();
         utilityData.notification = true;
         utilityData.recurring = true;
 
