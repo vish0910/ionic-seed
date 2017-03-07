@@ -4,6 +4,7 @@ angular
 
 function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities, $timeout) {
     var vm = this;
+    var UTILITY = 'UTILITY';
 
     vm.openEditModal = openEditModal;
     vm.openAddModal = openAddModal;
@@ -39,6 +40,16 @@ function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities,
 
         utilityData.name = utility.name;
         utilityData.dueDate = utility.dueDate.getTime();
+
+        //For notifications
+        utilityData.notification_id = utilityData.dueDate;
+        utilityData.notification = true;
+        utilityData.recurring = true;
+
+        //Add type
+        utilityData.type = UTILITY;
+
+        //TODO Create notification
 
         // save existing data if key is present, else add
         utility.key ? userUtilities.$save(utilityData) : userUtilities.$add(utilityData);

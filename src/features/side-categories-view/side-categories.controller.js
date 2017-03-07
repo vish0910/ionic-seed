@@ -2,8 +2,9 @@ angular
     .module('app.sideCategories')
     .controller('SideCategoriesCtrl', SideCategoriesCtrl);
 
-function SideCategoriesCtrl($ionicModal, $scope, DefaultCategories, userCategories, Transactions, $timeout) {
+function SideCategoriesCtrl($ionicModal, $q, $scope, DefaultCategories, userCategories, Transactions, $timeout) {
     var vm = this;
+    var CATEGORY = 'CATEGORY';
 
     vm.openEditModal = openEditModal;
     vm.openAddModal = openAddModal;
@@ -31,7 +32,6 @@ function SideCategoriesCtrl($ionicModal, $scope, DefaultCategories, userCategori
 
                 Transactions.$save(d)
             }
-            ;
         });
     }
 
@@ -50,6 +50,12 @@ function SideCategoriesCtrl($ionicModal, $scope, DefaultCategories, userCategori
         categoryData.name = category.name;
         categoryData.budget = category.budget;
 
+        //Add default monthly dueDate;
+        categoryData.dueDate = getEndOfCurrentMonth();
+
+        //Add type
+        categoryData.type = CATEGORY;
+
         // save existing data if key is present, else add
         category.key ? userCategories.$save(categoryData) : userCategories.$add(categoryData);
 
@@ -60,6 +66,15 @@ function SideCategoriesCtrl($ionicModal, $scope, DefaultCategories, userCategori
         $scope.modal.hide();
     };
 
+    function getEndOfCurrentMonth(){
+            var date = new Date();
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+
+        //TODO replace getTime with setHours()
+            return (new Date(y, m, 0).getTime() + 86399999); //to got to 23.59.59 of that day
+    }
+
     function openEditModal(category) {
         $scope.category = {
             name: category.name,
@@ -67,7 +82,6 @@ function SideCategoriesCtrl($ionicModal, $scope, DefaultCategories, userCategori
             key: userCategories.$keyAt(category)
         };
         $scope.modal.show($scope.category);
-
     }
 
     function openAddModal(categoryName) {

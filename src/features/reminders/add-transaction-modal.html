@@ -1,0 +1,22 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h4 class="title">Enter Amount Paid</h4>
+        <button class="button pull-right ion-close background-transparent" ng-click="closeAddTransactionModal()"></button>
+    </ion-header-bar>
+    <ion-content>
+        <form name="amountPaidForm">
+            <div class="list">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Amount ($)</span>
+                    <input type="number"
+                           ng-model="selectedReminder.amountPaid" required>
+                </label>
+                <button class="button button-full button-positive"
+                        ng-disabled="amountPaidForm.$invalid"
+                        ng-click="addPaymentTransaction(selectedReminder)">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </ion-content>
+</ion-modal-view>

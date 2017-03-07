@@ -200,7 +200,7 @@
                 _.chain(transactions)
                     .groupBy('category.name')
                     .omit(function (transaction) {
-                        return transaction[0].category.name === 'other'
+                        return _.includes(['other', 'payment'], transaction[0].category.name);
                     })
                     .map(function (value, key) {
                         return {

@@ -99,12 +99,45 @@
             .amount {
                 font-size: 200%;
             }
-            .date {
-                font-size: 150%;
+            .days {
+                font-size: 130%;
+                .due-in {
+                    color: $balanced;
+                }
+                .due-today {
+                    color: $energized;
+                }
+                .due-since {
+                    color: $assertive;
+                }
             }
         }
         .dark-item {
             background: $stable;
         }
+
     }
+}
+
+.reminder-popover {
+    top: 20% !important;
+    left: 50% !important;
+    margin-left: -110px !important;
+    height: 220px;
+    border: none;
+    .item {
+        border: none;
+    }
+    .popover-controls {
+        margin: 0px -10px 0px 20px;
+    }
+
+}
+
+.popover-arrow {
+    visibility: hidden;
+}
+
+.background-transparent, .background-transparent .activated {
+    background: transparent;
 }

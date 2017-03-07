@@ -1,0 +1,16 @@
+<ion-popover-view class="reminder-popover">
+    <ion-header-bar class="reminder-header">
+        <h4>{{selectedReminder.name}}</h4>
+        <button class="button pull-right ion-close background-transparent" ng-click="closeReminderPopover(selectedReminder)"></button>
+    </ion-header-bar>
+    <ion-content>
+        <ion-toggle ng-model="selectedReminder.notification" toggle-class="toggle-balanced">Notification</ion-toggle>
+        <ion-toggle ng-model="selectedReminder.recurring" toggle-class="toggle-balanced"  ng-disabled="!selectedReminder.notification">Recurring</ion-toggle>
+        <div class="row">
+            <div class="button-bar popover-controls">
+                <button ng-click="closeReminderPopover(selectedReminder)" class="button button-assertive">Close</button>
+                <button ng-click="dismissReminder(selectedReminder)" class="button button-balanced">Dismiss</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-popover-view>

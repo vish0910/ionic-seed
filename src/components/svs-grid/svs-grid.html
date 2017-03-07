@@ -10,10 +10,10 @@
                 </div>
                 <div class="row row-bottom no-left-margin">
                     <div class="col-50">{{item.date | date}}</div>
-                    <div class="col-50">{{item.card.name}}</div>
+                    <div class="col-50 ellipsis">{{item.card.name}}</div>
                 </div>
             </div>
-            <div class="col-25 text-right amount">{{item.amount}}$</div>
+            <div class="col-25 text-right amount">${{item.amount}}</div>
         </div>
     </div>
 </div>

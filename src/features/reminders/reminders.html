@@ -1,34 +1,37 @@
 <ion-view cache-view="false" view-title="Reminders" class="reminder-page">
     <ion-content scroll="true">
-        <div class="svs-grid list">
-            <div class="item svs-item" ng-repeat="item in remindersVm.reminders" ng-class-odd="'dark-item'">
+        <button class="button" ng-click="remindersVm.getAllNotifications()">All notifications</button>
+        <button class="button" ng-click="remindersVm.removeAllNotifications()">Cancel All notifications</button>
+        <ion-list class="svs-grid list" can-swipe="true">
+            <ion-item class="item svs-item"
+                      ng-repeat="item in remindersVm.reminders | orderBy:'remainingDays' track by $index"
+                      ng-class-odd="'dark-item'" on-hold="remindersVm.openReminderPopover($event, item)">
                 <div class="row no-left-margin">
                     <div class="col-50">
                         <div class="row row-top no-left-margin">
-                            <div class="col-50">{{item.name}}</div>
+                            <div class="col-50 ellipsis">{{item.name}}</div>
                         </div>
                         <div class="row row-bottom no-left-margin">
                             <div class="col-50">{{item.dueDate | date}}</div>
                         </div>
                     </div>
-                    <div class="col-25 text-right date">In {{item.remainingDays}} Days</div>
+                    <div class="col-50 text-right days no-right-margin">
+                        <span ng-if="item.remainingDays > 0" class="due-in">
+                            Due in {{item.remainingDays}} Days
+                        </span>
+                        <span ng-if="item.remainingDays == 0" class="due-today">
+                            Due today
+                        </span>
+                        <span ng-if="item.remainingDays <0" class="due-since">
+                            Due since {{item.remainingDays * (-1)}} Days
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <!--<ul class="list">-->
-            <!--<li class="item" ng-repeat="item in remindersVm.reminders" ng-class-odd="'dark-item'">-->
-                <!--<div class="row">-->
-                <!--<div class="col-50">-->
-                <!--<div class="row row-top">-->
-                <!--<div class="col-50">{{item.name}}</div>-->
-                <!--</div>-->
-                <!--<div class="row row-bottom">-->
-                <!--<div class="col-50">{{item.dueDate | date}}</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="col-25 text-right amount">{{item.remainingDays}}$</div>-->
-                <!--</div>-->
-            <!--</li>-->
-        <!--</ul>-->
+                <ion-option-button class="button-balanced"
+                                   ng-click="remindersVm.dismissReminder(item)">
+                    Dismiss
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>

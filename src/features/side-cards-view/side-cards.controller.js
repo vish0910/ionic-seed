@@ -4,6 +4,7 @@ angular
 
 function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, Transactions, $timeout) {
     var vm = this;
+    var CARD = 'CARD';
 
     vm.openEditModal = openEditModal;
     vm.openAddModal = openAddModal;
@@ -48,7 +49,20 @@ function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, Transaction
 
         cardData.name = card.name;
         cardData.budget = card.budget;
-        cardData.dueDate = card.dueDate.getTime();
+        cardData.dueDate = card.dueDate.setHours(23,59,59,999);
+
+        //For notifications
+        cardData.notification_id = card.dueDate.getTime();
+        cardData.notification = true;
+        cardData.recurring = true;
+
+        //Add type
+        cardData.type = CARD;
+
+        cardData.amountDue = 0;
+        cardData.pending = 0;
+
+        //TODO Create notification
 
         // save existing data if key is present, else add
         card.key ? userCards.$save(cardData) : userCards.$add(cardData);
