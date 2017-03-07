@@ -52,7 +52,7 @@ function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, Transaction
         cardData.dueDate = card.dueDate.setHours(23,59,59,999);
 
         //For notifications
-        cardData.notification_id = card.dueDate.getTime();
+        cardData.notification_id = new Date().getTime();
         cardData.notification = true;
         cardData.recurring = true;
 
