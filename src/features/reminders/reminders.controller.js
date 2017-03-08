@@ -27,6 +27,7 @@
         var oldReminder;
 
         $scope.test = 'test';
+        $scope.uncheckRecurring = uncheckRecurring;
         $scope.dismissReminder = dismissReminder;
         $scope.closeReminderPopover = closeReminderPopover;
         $scope.modifyNotification = modifyNotification;
@@ -37,13 +38,14 @@
         remindersVm.openReminderPopover = openReminderPopover;
         remindersVm.removeAllNotifications = svsNotificationService.removeAllNotifications;
         remindersVm.getAllNotifications = svsNotificationService.getAllNotifications;
-
+        remindersVm.getNotificationObj = svsNotificationService.getNotificationObj;
         init();
         function init() {
 
             calculateRemainingDays();
             $ionicPopover.fromTemplateUrl(POPOVER_TEMPLATE, {
-                scope: $scope
+                scope: $scope,
+                backdropClickToClose: false
             }).then(function (popover) {
                 remindersVm.popover = popover;
             });
@@ -66,29 +68,34 @@
             remindersVm.reminders = data;
         }
 
+        function uncheckRecurring(item) {
+            if (!item.notification) {
+                item.recurring = false;
+            }
+        }
+
         function modifyNotification(item) {
             var config = {
-                id: item.id,
+                id: item.notification_id,
                 title: 'Payment Reminder',
                 text: item.name + ' bill is due soon',
-                sound: 'file://resources/sound/solemn.mp3',
-                every: (item.recurring) ? 'minute' : undefined,
+                every: (item.recurring) ? 'month' : undefined,
                 autoClear: true,
-                at: new Date(new Date().getTime() + 10 * 1000)
+                at: new Date(item.dueDate).setHours(0,0,0,0)
             };
-
-            svsNotificationService.addNotification(config);
-
-            console.log("Notification set as:");
+            //new Date(new Date(item.dueDate).getTime() + 10 * 1000)
+            //at: new Date(new Date().getTime() + 10 * 1000)
+            console.log("Notification modified as:");
             console.log(config);
+            return svsNotificationService.addNotification(config);
         }
 
         function removeNotification(item) {
-            svsNotificationService.getNotification(item.id)
+            return svsNotificationService.getNotification(item.notification_id)
                 .then(function (value) {
                     console.log(value);
                     if (value) {
-                        svsNotificationService.removeNotification(item.id);
+                        return svsNotificationService.removeNotification(item.notification_id);
                     }
                 });
         }
@@ -116,7 +123,7 @@
 
         function closeReminderPopover(item) {
             if (reminderConfigChanged(item)) {
-                saveReminderConfig(item);
+                saveNotificationConfig(item, true);
                 cleanPopover();
             } else {
                 cleanPopover();
@@ -129,13 +136,41 @@
             remindersVm.popover.hide();
         }
 
-        function saveReminderConfig(item) {
-            //todo PUT the item back as it may have changed value.
+        function saveNotificationConfig(item, mod) {
             if (item.notification) {
-                return modifyNotification(item)
+                modifyNotification(item)
+                    .then(function (v) {
+                        //update item
+                        if (mod) {
+                            ionicToast.show('Notification updated.', 'bottom', false, 2500);
+                            saveReminderProperties(item);
+                        }
+                    });
             } else {
-                return removeNotification(item);
+                removeNotification(item)
+                    .then(function (v) {
+                        //update item
+                        if (mod) {
+                            ionicToast.show('Notification removed.', 'bottom', false, 2500);
+                            saveReminderProperties(item);
+                        }
+                    });
             }
+        }
+
+        function saveReminderProperties(item) {
+            console.log('save reminder item');
+
+            var Items = (item.type == 'CARD') ? Cards : userUtilities;
+
+            var itemToBeUpdated = Items.$getRecord(item.$id) || {};
+
+
+            itemToBeUpdated.notification = item.notification;
+            itemToBeUpdated.recurring = item.recurring;
+            console.log(Items);
+            console.log(item);
+            updateItem(itemToBeUpdated, Items);
         }
 
         function reminderConfigChanged(item) {
@@ -159,7 +194,7 @@
         function cleanModal() {
             console.log("here");
             oldReminder = null;
-            remindersVm.modal.hide();
+            remindersVm.modal.remove();
         }
 
         function addPaymentTransaction(item) {
@@ -179,7 +214,7 @@
                 category: {name: PAYMENT_CATEGORY, id: PAYMENT_CATEGORY},
                 card: {name: item.name, id: item.$id},
                 amount: -(item.amountPaid),
-                date: new Date().getTime(),
+                date: item.dueDate,
                 description: 'Bill Paid'
             };
 
@@ -189,7 +224,6 @@
                 });
 
 
-            //TODO Calculate new duedate
             cleanModal();
             cleanPopover();
 
@@ -199,25 +233,31 @@
         function updateCard(item, transaction) {
             var itemToBeUpdated = Cards.$getRecord(item.$id) || {};
 
-            if (Math.abs(transaction.amount) < item.amountDue) {
-                itemToBeUpdated.amountDue = _.get(itemToBeUpdated, 'amountDue', 0) + transaction.amount;
-            } else {
-                itemToBeUpdated.amountDue = _.get(itemToBeUpdated, 'amountDue', 0) + transaction.amount;
+            itemToBeUpdated.amountDue = _.get(itemToBeUpdated, 'amountDue', 0) + transaction.amount;
+            if (Math.abs(transaction.amount) >= item.amountDue) {
                 itemToBeUpdated.amountDue += _.get(itemToBeUpdated, 'pending', 0);
                 itemToBeUpdated.pending = 0;
-                itemToBeUpdated.dueDate = new Date(item.dueDate).next().month().getTime();
+                updateDueDate(itemToBeUpdated);
             }
             updateItem(itemToBeUpdated, Cards);
         }
 
-        function updateUserUtilities(item){
+        function updateUserUtilities(item) {
             var itemToBeUpdated = userUtilities.$getRecord(item.$id) || {};
 
-            itemToBeUpdated.dueDate = new Date(item.dueDate).next().month().getTime();
+            updateDueDate(itemToBeUpdated);
             updateItem(itemToBeUpdated, userUtilities);
         }
 
+        function updateDueDate(itemToBeUpdated) {
+            itemToBeUpdated.dueDate = new Date(itemToBeUpdated.dueDate).next().month().setHours(23, 59, 59, 999);
+            //itemToBeUpdated.dueDate = new Date(new Date().getTime() + 60 * 1000);
+            saveNotificationConfig(itemToBeUpdated);
+        }
+
         function updateItem(itemToBeUpdated, Items) {
+            console.log('update item');
+            console.log(itemToBeUpdated);
             if (itemToBeUpdated.$id) {
                 Items.$save(itemToBeUpdated);
             }

@@ -2,6 +2,7 @@
     <ion-content scroll="true">
         <button class="button" ng-click="remindersVm.getAllNotifications()">All notifications</button>
         <button class="button" ng-click="remindersVm.removeAllNotifications()">Cancel All notifications</button>
+        <button class="button" ng-click="remindersVm.getNotificationObj()">All noti body</button>
         <ion-list class="svs-grid list" can-swipe="true">
             <ion-item class="item svs-item"
                       ng-repeat="item in remindersVm.reminders | orderBy:'remainingDays' track by $index"
@@ -28,7 +29,7 @@
                     </div>
                 </div>
                 <ion-option-button class="button-balanced"
-                                   ng-click="remindersVm.dismissReminder(item)">
+                                   ng-click="dismissReminder(item)">
                     Dismiss
                 </ion-option-button>
             </ion-item>

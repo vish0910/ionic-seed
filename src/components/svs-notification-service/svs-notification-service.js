@@ -15,8 +15,11 @@
         self.removeAllNotifications = removeAllNotifications;
         self.updateNotification = updateNotification;
         self.getAllNotifications = getAllNotifications;
+        self.getNotificationObj = getNotificationObj;
 
         function addNotification(config) {
+            var defer = $q.defer();
+
             $window.cordova.plugins.notification.local.schedule({
                 id: config.id,
                 title: config.title,
@@ -25,15 +28,25 @@
                 every: config.every,
                 autoClear: config.autoClear,
                 at: config.at
+            }, function (found) {
+                console.log('incallback of schedule' + found);
+
+                defer.resolve(found);
             });
             console.log("in add noti service");
+
+            return defer.promise;
+
         }
 
         function removeNotification(id) {
             console.log("in remove notification");
-            return $window.cordova.plugins.notification.local.cancel(id, function () {
-                alert('cancelled');
+            var defer = $q.defer();
+
+            $window.cordova.plugins.notification.local.cancel(id, function (found) {
+                defer.resolve(found);
             });
+            return defer.promise;
         }
 
         function getNotification(id) {
@@ -44,6 +57,14 @@
             });
 
             return defer.promise;
+        }
+
+        function getNotificationObj(id) {
+            $window.cordova.plugins.notification.local.getAll(
+                function (ids) {
+                    console.log(JSON.stringify(ids));
+                    alert(ids.join(', '));
+                });
         }
 
         function removeAllNotifications() {
