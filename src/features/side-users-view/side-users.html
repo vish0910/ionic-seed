@@ -1,7 +1,19 @@
 <ion-view view-title="User Settings" class="side-user">
     <ion-content>
-        <div class="item item-divider">
-            <span>My Account</span>
+        <div class="item item-divider text-center">
+            <img ng-if="vm.userInfo.image"
+                 ng-click="vm.addMedia()"
+                 class="user-image img-center"
+                 ng-src="data:image/gif;base64,{{vm.userInfo.image}}"/>
+            <span ng-if="!vm.userInfo.image">
+                <div class="item-icon-center icon-circle img-center"
+                     ng-click="vm.addMedia()">
+                        <i class="icon ion-person"></i>
+                </div>
+            </span>
+            <span ng-click="vm.addMedia()"
+                  class="edit-photo">Change Photo
+            </span>
         </div>
         <ion-list>
             <ion-item>

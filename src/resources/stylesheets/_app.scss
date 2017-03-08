@@ -23,6 +23,38 @@ $dark-item: #f0f0f0 !default;
 
 }
 
+.home {
+    .user-image{
+        border-radius: 50%;
+        border:1px solid #145486;
+        height: 75px;
+        width: 75px;
+    }
+    .img-center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.side-user {
+    .user-image {
+        border-radius: 50%;
+        border: 1px solid #145486;
+        height: 100px;
+        width: 100px;
+    }
+    .img-center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .edit-photo {
+        font-size: 13px;
+        color: #145486;
+    }
+}
+
 .signup {
     label {
         border-top-width: 0;
