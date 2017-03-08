@@ -11,7 +11,7 @@
         init();
 
         function init() {
-            categoriesVm.data = svsGetDataService.getCategoriesData(Transactions, Categories);
+            categoriesVm.data = svsGetDataService.getCategoriesData(Categories);
         }
 
         function goToCategory(data){
