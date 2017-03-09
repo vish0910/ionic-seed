@@ -1,7 +1,10 @@
 <ion-view cache-view="false" view-title="Reminders" class="reminder-page">
     <ion-content scroll="true">
-        <button class="button" ng-click="remindersVm.getAllNotifications()">All notifications</button>
-        <button class="button" ng-click="remindersVm.removeAllNotifications()">Cancel All notifications</button>
+        <div ng-if="false">
+            <button class="button" ng-click="remindersVm.getAllNotifications()">All notifications</button>
+            <button class="button" ng-click="remindersVm.removeAllNotifications()">Cancel All notifications</button>
+            <button class="button" ng-click="remindersVm.getNotificationObj()">All noti body</button>
+        </div>
         <ion-list class="svs-grid list" can-swipe="true">
             <ion-item class="item svs-item"
                       ng-repeat="item in remindersVm.reminders | orderBy:'remainingDays' track by $index"
@@ -15,20 +18,27 @@
                             <div class="col-50">{{item.dueDate | date}}</div>
                         </div>
                     </div>
-                    <div class="col-50 text-right days no-right-margin">
-                        <span ng-if="item.remainingDays > 0" class="due-in">
-                            Due in {{item.remainingDays}} Days
-                        </span>
-                        <span ng-if="item.remainingDays == 0" class="due-today">
-                            Due today
-                        </span>
-                        <span ng-if="item.remainingDays <0" class="due-since">
-                            Due since {{item.remainingDays * (-1)}} Days
-                        </span>
+                    <div class="col-50 text-right no-right-margin">
+                        <div class="days row row-top row-no-padding no-right-margin pull-right">
+                            <span ng-if="item.remainingDays > 0" class="due-in">
+                                Due in {{item.remainingDays}} Days
+                            </span>
+                            <span ng-if="item.remainingDays == 0" class="due-today">
+                                Due today
+                            </span>
+                            <span ng-if="item.remainingDays <0" class="due-since">
+                                Due since {{item.remainingDays * (-1)}} Days
+                            </span>
+                        </div>
+                        <div class="row row-bottom row-no-padding no-right-margin pull-right">
+                            <div class="row row-bottom no-left-margin row-no-padding">
+                                <div class="col-50" ng-if="item.amountDue">Amount: ${{item.amountDue}}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <ion-option-button class="button-balanced"
-                                   ng-click="remindersVm.dismissReminder(item)">
+                                   ng-click="dismissReminder(item)">
                     Dismiss
                 </ion-option-button>
             </ion-item>

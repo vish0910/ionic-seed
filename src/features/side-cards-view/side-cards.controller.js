@@ -2,7 +2,7 @@ angular
     .module('app.sideCards')
     .controller('SideCardsCtrl', SideCardsCtrl);
 
-function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, Transactions, $timeout) {
+function SideCardsCtrl($ionicModal, $scope, $timeout, DefaultCards, svsNotificationService,Transactions, userCards) {
     var vm = this;
     var CARD = 'CARD';
 
@@ -31,8 +31,11 @@ function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, Transaction
                 d.card.name = "other";
 
                 Transactions.$save(d)
-            };
+            }
         });
+
+        //Remove associated notification if exists
+        removeNotification(card);
     }
 
     $ionicModal.fromTemplateUrl('features/side-cards-view/add-card.html', {
@@ -62,7 +65,8 @@ function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, Transaction
         cardData.amountDue = 0;
         cardData.pending = 0;
 
-        //TODO Create notification
+        //Create notification
+        createNotification(cardData);
 
         // save existing data if key is present, else add
         card.key ? userCards.$save(cardData) : userCards.$add(cardData);
@@ -73,6 +77,30 @@ function SideCardsCtrl($ionicModal, $scope, DefaultCards, userCards, Transaction
         });
         $scope.modal.hide();
     };
+
+    function createNotification(item) {
+        var config = {
+            id: item.notification_id,
+            title: 'Payment Reminder',
+            text: item.name + ' bill is due soon',
+            every: (item.recurring) ? 'month' : undefined,
+            autoClear: true,
+            at: new Date(item.dueDate).setHours(0,0,0,0)
+        };
+        console.log("Notification modified as:");
+        console.log(config);
+        return svsNotificationService.addNotification(config);
+    }
+
+    function removeNotification(item) {
+        return svsNotificationService.getNotification(item.notification_id)
+            .then(function (value) {
+                console.log(value);
+                if (value) {
+                    return svsNotificationService.removeNotification(item.notification_id);
+                }
+            });
+    }
 
     function openEditModal(card) {
         $scope.card = {

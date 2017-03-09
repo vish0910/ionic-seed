@@ -1,3 +1,10 @@
+$dark-item: #f0f0f0 !default;
+
+
+.card-title{
+    background: #145486;
+    color: #fff;
+}
 .app {
     .logo {
         display: block;
@@ -111,9 +118,15 @@
                     color: $assertive;
                 }
             }
+            .item-content {
+                padding: 8px 10px;
+                .row-bottom {
+                    padding: 5px;
+                }
+            }
         }
         .dark-item {
-            background: $stable;
+            background: $dark-item;
         }
 
     }

@@ -7,9 +7,9 @@
         <form name="amountPaidForm">
             <div class="list">
                 <label class="item item-input item-stacked-label">
-                    <span class="input-label">Amount ($)</span>
+                    <span class="input-label">Amount ($) <span ng-class="(selectedReminder.amountDue > 0)?'assertive': 'balanced'">(Due: ${{selectedReminder.amountDue}})</span></span>
                     <input type="number"
-                           ng-model="selectedReminder.amountPaid" required>
+                           ng-model="remindersVm.amountPaid" required>
                 </label>
                 <button class="button button-full button-positive"
                         ng-disabled="amountPaidForm.$invalid"

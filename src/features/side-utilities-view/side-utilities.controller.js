@@ -2,7 +2,7 @@ angular
     .module('app.sideUtilities')
     .controller('SideUtilitiesCtrl', SideUtilitiesCtrl);
 
-function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities, $timeout) {
+function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities, $timeout, svsNotificationService) {
     var vm = this;
     var UTILITY = 'UTILITY';
 
@@ -24,6 +24,9 @@ function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities,
         $timeout(function () {
             vm.suggestedUtilities = _.difference(_.map(DefaultUtilities, 'name'), _.map(userUtilities, 'name'));
         });
+
+        //Remove associated notification if exists
+        removeNotification(utility);
     }
 
     $ionicModal.fromTemplateUrl('features/side-utilities-view/add-utility.html', {
@@ -49,7 +52,8 @@ function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities,
         //Add type
         utilityData.type = UTILITY;
 
-        //TODO Create notification
+        //Create notification
+        createNotification(utilityData);
 
         // save existing data if key is present, else add
         utility.key ? userUtilities.$save(utilityData) : userUtilities.$add(utilityData);
@@ -60,6 +64,30 @@ function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities,
         });
         $scope.modal.hide();
     };
+
+    function createNotification(item) {
+        var config = {
+            id: item.notification_id,
+            title: 'Payment Reminder',
+            text: item.name + ' bill is due soon',
+            every: (item.recurring) ? 'month' : undefined,
+            autoClear: true,
+            at: new Date(item.dueDate).setHours(0,0,0,0)
+        };
+        console.log("Notification modified as:");
+        console.log(config);
+        return svsNotificationService.addNotification(config);
+    }
+
+    function removeNotification(item) {
+        return svsNotificationService.getNotification(item.notification_id)
+            .then(function (value) {
+                console.log(value);
+                if (value) {
+                    return svsNotificationService.removeNotification(item.notification_id);
+                }
+            });
+    }
 
     function openEditModal(utility) {
         $scope.utility = {

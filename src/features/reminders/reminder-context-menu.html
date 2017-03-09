@@ -4,8 +4,8 @@
         <button class="button pull-right ion-close background-transparent" ng-click="closeReminderPopover(selectedReminder)"></button>
     </ion-header-bar>
     <ion-content>
-        <ion-toggle ng-model="selectedReminder.notification" toggle-class="toggle-balanced">Notification</ion-toggle>
-        <ion-toggle ng-model="selectedReminder.recurring" toggle-class="toggle-balanced"  ng-disabled="!selectedReminder.notification">Recurring</ion-toggle>
+        <ion-toggle ng-model="selectedReminder.notification" toggle-class="toggle-balanced" ng-click="uncheckRecurring(selectedReminder)">Notification</ion-toggle>
+        <ion-toggle ng-model="selectedReminder.recurring" toggle-class="toggle-balanced"  ng-disabled="!selectedReminder.notification" ng-value="false">Recurring</ion-toggle>
         <div class="row">
             <div class="button-bar popover-controls">
                 <button ng-click="closeReminderPopover(selectedReminder)" class="button button-assertive">Close</button>
