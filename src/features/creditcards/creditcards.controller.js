@@ -11,7 +11,7 @@
         init();
 
         function init (){
-            creditcardsVm.data = svsGetDataService.getCreditCardsData(Transactions, Cards);
+            creditcardsVm.data = svsGetDataService.getCreditCardsData(Cards);
         }
 
         function goToCard(data){

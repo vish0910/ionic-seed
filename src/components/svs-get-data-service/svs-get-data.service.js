@@ -22,25 +22,14 @@
         self.getCategoriesTransactionData = getCategoriesTransactionData;
         self.getCategoriesData = getCategoriesData;
 
-        function getCreditCardsData(transactions, cards) {
-            var data =
-                _.chain(transactions)
-                    .groupBy('card.name')
-                    .omit(function (transaction) {
-                        return transaction[0].card.name === 'other'
-                    })
-                    .map(function (value, key) {
-                        return {
-                            dueDate: _.filter(cards, { 'name': key })[0].dueDate,
-                            budget: _.filter(cards, { 'name': key })[0].budget,
-                            name: key,
-                            used: _.sum(_.pluck(value, 'amount'))
-                        }
-                    })
-                    .value();
-
-            _.forEach(data, function (d) {
-                d.barColor = getColor(d.used, d.budget, 25, 35)
+        function getCreditCardsData(cards) {
+            var data = _.map(cards, function(key){
+                return {
+                    budget: key.budget,
+                    name: key.name,
+                    used: key.amountDue,
+                    barColor: getColor(_.get(key, 'amountDue', 0), key.budget, 25, 75)
+                }
             });
 
             return _.sortBy(data, function (d) {
