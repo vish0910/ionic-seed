@@ -23,6 +23,18 @@ $dark-item: #f0f0f0 !default;
 
 }
 
+.nv-y {
+    .nv-wrap {
+        display: none;
+    }
+}
+
+.nv-x {
+    line {
+        display: none;
+    }
+}
+
 .home {
     .user-image{
         border-radius: 50%;

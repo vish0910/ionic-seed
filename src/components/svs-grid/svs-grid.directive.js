@@ -14,7 +14,7 @@
                 sortBy : '='
             },
             controller: 'svsGridController',
-            controllerAs: 'svsGridVm'
+            controllerAs: 'vm'
         };
     }
 

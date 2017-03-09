@@ -18,7 +18,8 @@
                     authenticate: false
                 },
                 params: {
-                    transactions: '='
+                    transactions: '=',
+                    categories: '='
                 }
             });
     }
