@@ -2,7 +2,7 @@ angular
     .module('app.sideUtilities')
     .controller('SideUtilitiesCtrl', SideUtilitiesCtrl);
 
-function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities, $timeout) {
+function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities, $timeout, svsNotificationService) {
     var vm = this;
     var UTILITY = 'UTILITY';
 
