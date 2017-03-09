@@ -49,13 +49,6 @@
             }).then(function (popover) {
                 remindersVm.popover = popover;
             });
-
-            $ionicModal.fromTemplateUrl(ADD_TRANSACTION_MODAL_TEMPLATE, {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function (modal) {
-                remindersVm.modal = modal;
-            });
         }
 
         function calculateRemainingDays() {
@@ -98,19 +91,6 @@
                         return svsNotificationService.removeNotification(item.notification_id);
                     }
                 });
-        }
-
-        function dismissReminder(item) {
-            console.log("called");
-            console.log(item);
-            //Paid is set to true Open Transaction recorder
-            //todo open modal only for card bills
-            if (item.type == 'CARD') {
-                openAddTransactionModal(item);
-            } else {
-                cleanPopover();
-                updateUserUtilities(item);
-            }
         }
 
         function openReminderPopover($event, item) {
@@ -181,19 +161,39 @@
             return (item.notification != _.get(oldReminder, 'notification') || item.recurring != _.get(oldReminder, 'recurring'))
         }
 
+        function dismissReminder(item) {
+            console.log("called");
+            console.log(item);
+            //Paid is set to true Open Transaction recorder
+            //todo open modal only for card bills
+            if (item.type == 'CARD') {
+                openAddTransactionModal(item);
+            } else {
+                cleanPopover();
+                updateUserUtilities(item);
+            }
+        }
+
         function openAddTransactionModal(item) {
             oldReminder = angular.copy(item);
             $scope.selectedReminder = item;
-            remindersVm.modal.show();
+            $ionicModal.fromTemplateUrl(ADD_TRANSACTION_MODAL_TEMPLATE, {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                remindersVm.modal = modal;
+                remindersVm.modal.show();
+            });
         }
 
-        function closeAddTransactionModal() {
-            cleanModal();
+        function closeAddTransactionModal(item) {
+            cleanModal(item);
         }
 
         function cleanModal() {
             console.log("here");
             oldReminder = null;
+            remindersVm.amountPaid = undefined;
             remindersVm.modal.remove();
         }
 
@@ -213,7 +213,7 @@
             var transaction = {
                 category: {name: PAYMENT_CATEGORY, id: PAYMENT_CATEGORY},
                 card: {name: item.name, id: item.$id},
-                amount: -(item.amountPaid),
+                amount: -(remindersVm.amountPaid),
                 date: item.dueDate,
                 description: 'Bill Paid'
             };
@@ -224,15 +224,15 @@
                 });
 
 
+            updateCard(item, transaction);
             cleanModal();
             cleanPopover();
-
-            updateCard(item, transaction);
         }
 
         function updateCard(item, transaction) {
             var itemToBeUpdated = Cards.$getRecord(item.$id) || {};
 
+            itemToBeUpdated.lastAmountPaid = remindersVm.amountPaid;
             itemToBeUpdated.amountDue = _.get(itemToBeUpdated, 'amountDue', 0) + transaction.amount;
             if (Math.abs(transaction.amount) >= item.amountDue) {
                 itemToBeUpdated.amountDue += _.get(itemToBeUpdated, 'pending', 0);
