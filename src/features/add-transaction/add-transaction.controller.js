@@ -15,6 +15,7 @@
         function init() {
             vm.categories = Categories;
             vm.cards = Cards;
+            vm.today = new Date().toISOString();
             setDefaults();
         }
 

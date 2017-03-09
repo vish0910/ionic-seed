@@ -35,6 +35,7 @@
                     <input type="date"
                            ng-model="vm.selectedDate"
                            value="{{vm.selectedDate | date:'yyyy-MM-dd'}}"
+                           max="{{vm.today}}"
                            name="date"
                            ng-required="true"/>
                 </label>
