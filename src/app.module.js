@@ -15,6 +15,7 @@
         'ui.bootstrap',
         'firebase',
         'ionic-toast',
+        'nvd3',
 
         // services
         'app.auth',

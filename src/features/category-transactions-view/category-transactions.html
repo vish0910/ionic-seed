@@ -1,5 +1,9 @@
 <ion-view cache-view="false" view-title={{vm.categoryName}} class="transactions-page">
     <ion-content scroll="true">
-        <svs-grid ng-if="vm.data.length" data="vm.data" sort-by="'-date'"></svs-grid>
+        <nvd3 options="vm.options" data="vm.graphDate"></nvd3>
+        <svs-grid ng-if="vm.data && vm.data.length" data="vm.data" sort-by="'-date'"></svs-grid>
+        <div ng-if="!vm.data" class="textCenter">
+            <h4>No Transaction this month</h4>
+        </div>
     </ion-content>
 </ion-view>

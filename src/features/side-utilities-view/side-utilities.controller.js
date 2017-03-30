@@ -2,7 +2,7 @@ angular
     .module('app.sideUtilities')
     .controller('SideUtilitiesCtrl', SideUtilitiesCtrl);
 
-function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities, $timeout, svsNotificationService) {
+function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities, $timeout, $ionicHistory, svsNotificationService) {
     var vm = this;
     var UTILITY = 'UTILITY';
 
@@ -111,6 +111,8 @@ function SideUtilitiesCtrl($ionicModal, $scope, DefaultUtilities, userUtilities,
         else {
             $scope.utility = {}
         }
-        $scope.modal.show($scope.utility);
+        $ionicHistory.clearCache().then(function () {
+            $scope.modal.show($scope.utility);
+        });
     }
 }

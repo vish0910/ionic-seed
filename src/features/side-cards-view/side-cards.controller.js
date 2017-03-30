@@ -2,7 +2,7 @@ angular
     .module('app.sideCards')
     .controller('SideCardsCtrl', SideCardsCtrl);
 
-function SideCardsCtrl($ionicModal, $scope, $timeout, DefaultCards, svsNotificationService,Transactions, userCards) {
+function SideCardsCtrl($ionicModal, $scope, $timeout, $ionicHistory, DefaultCards, svsNotificationService, Transactions, userCards) {
     var vm = this;
     var CARD = 'CARD';
 
@@ -125,6 +125,8 @@ function SideCardsCtrl($ionicModal, $scope, $timeout, DefaultCards, svsNotificat
         else {
             $scope.card = {}
         }
-        $scope.modal.show($scope.card);
+        $ionicHistory.clearCache().then(function () {
+            $scope.modal.show($scope.card);
+        });
     }
 }

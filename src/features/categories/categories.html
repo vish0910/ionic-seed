@@ -1,8 +1,20 @@
 <ion-view cache-view="false" view-title="Categories">
     <ion-content scroll="true">
-        <div ng-repeat="item in categoriesVm.data">
+        <div ng-if="categoriesVm.data.length" ng-repeat="item in categoriesVm.data">
             <div ng-click="categoriesVm.goToCategory(item.name)">
                 <svs-info-card data="item"></svs-info-card>
+            </div>
+        </div>
+        <div ng-if="!categoriesVm.data.length">
+            <div class="col text-center" style="margin-top: 20px;">
+                <div>
+                    Add new Categories by going to category settings
+                </div>
+                <button class="button button-outline button-dark"
+                        style="margin-top: 20px;"
+                        ui-sref="app.home.category">
+                    Category Settings
+                </button>
             </div>
         </div>
     </ion-content>

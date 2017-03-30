@@ -1,4 +1,4 @@
-<ion-view view-title="Utility Settings">
+<ion-view cache-view="false" view-title="Utility Settings">
     <ion-content>
         <div class="item item-divider" ng-class="{ 'row': vm.usersUtilities.length}">
             <div ng-if="vm.usersUtilities.length">
@@ -36,7 +36,7 @@
         </ion-list>
         <div class="row" style="margin-left:0;">
             <div class="col text-center">
-                <button class="button button-outline button-positive"
+                <button class="button button-outline button-dark"
                         ng-click="vm.openAddModal()">Add Utility
                 </button>
             </div>

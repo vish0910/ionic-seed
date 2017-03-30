@@ -1,11 +1,11 @@
-<ion-view name="appView" cache-view="false">
+<ion-view name="appView" cache-view="false" class="home">
     <ion-side-menus enable-menu-with-back-views="false">
         <ion-side-menu-content>
 
             <ion-nav-bar class="bar-dark" align-title="center">
                 <ion-nav-back-button></ion-nav-back-button>
                 <ion-nav-buttons side="left">
-                    <button class="button button-icon button-clear ion-navicon"
+                    <button class="button button-icon button-clear ion-gear-a"
                             menu-toggle="left">
                     </button>
                 </ion-nav-buttons>
@@ -60,28 +60,34 @@
         </ion-side-menu-content>
 
         <ion-side-menu side="left">
-            <ion-header-bar class="bar-dark" style="height: 115px;">
-                <div style="padding-left: 100px; padding-top: 8px;">
-                    <div class="item-icon-center icon-circle">
+            <ion-header-bar class="bar-dark" style="height:125px;">
+                <div class="img-center">
+                    <div ng-if="!vm.userInfo[2].$value"
+                         class="item-icon-center icon-circle">
                         <i class="icon ion-person"
                            ng-click="vm.gotToUserProfile()"></i>
                     </div>
-                    <div class="textCenter">{{vm.userInfo[0].$value}}</div>
+                    <div ng-if="vm.userInfo[2].$value">
+                        <img ng-click="vm.gotToUserProfile()"
+                             class="user-image"
+                             ng-src="data:image/gif;base64,{{vm.userInfo[2].$value}}"/>
+                    </div>
+                    <div class="textCenter" ng-click="vm.gotToUserProfile()">{{vm.userInfo[0].$value}}</div>
                 </div>
             </ion-header-bar>
-            <ion-content style="top: 115px;">
+            <ion-content style="top:125px;">
                 <ion-list>
                     <ion-item menu-close ui-sref="app.home.category">
-                        Categories
+                        <i class="icon ion-briefcase settings-icon"></i> Categories
                     </ion-item>
                     <ion-item menu-close ui-sref="app.home.cards">
-                        Credit Cards
+                        <i class="icon ion-card settings-icon"></i> Credit Cards
                     </ion-item>
                     <ion-item menu-close ui-sref="app.home.utilities">
-                        Utilities
+                        <i class="icon ion-ios-home settings-icon"></i> Utilities
                     </ion-item>
                     <ion-item ng-click="vm.logout()" style="color: red;">
-                        Log Out
+                        <i class="icon ion-ios-person settings-icon"></i> Log Out
                     </ion-item>
                 </ion-list>
             </ion-content>
