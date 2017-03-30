@@ -5,5 +5,17 @@
                 <svs-info-card data="item"></svs-info-card>
             </div>
         </div>
+        <div ng-if="!creditcardsVm.data.length">
+            <div class="col text-center" style="margin-top: 20px;">
+                <div>
+                    Add new Credit Card by going to Credit cards settings
+                </div>
+                <button class="button button-outline button-dark"
+                        style="margin-top: 20px;"
+                        ui-sref="app.home.cards">
+                    Credit card Settings
+                </button>
+            </div>
+        </div>
     </ion-content>
 </ion-view>
