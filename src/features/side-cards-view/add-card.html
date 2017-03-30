@@ -1,4 +1,4 @@
-<ion-modal-view>
+<ion-modal-view cache-view="false" class="add-card">
     <ion-header-bar class="bar bar-header bar-dark">
         <h1 class="title">Card</h1>
         <button class="button button-clear button-primary"
@@ -6,26 +6,56 @@
         </button>
     </ion-header-bar>
     <ion-content class="padding">
-        <div class="list">
-            <label class="item item-input">
-                <span class="input-label">Name</span>
-                <input ng-model="card.name" type="text">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Limit</span>
-                <input ng-model="card.budget" type="number">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Due Date</span>
-                <input type="date"
-                       ng-model="card.dueDate"
-                       value="{{card.dueDate | date:'yyyy-MM-dd'}}">
-            </label>
-            <div>
-                <button class="button button-full button-dark"
-                        ng-click="addCard(card)">Save
-                </button>
+        <form novalidate name="myform">
+            <div class="list">
+                <label class="item item-input item-stacked-label"
+                       ng-class="{'red-bottom': myform.name.$invalid && myform.name.$touched,
+                    'green-bottom': myform.name.$valid && myform.name.$touched}">
+                    <span class="input-label">Name&nbsp;*</span>
+                    <input type="text"
+                           ng-model="card.name"
+                           name="name"
+                           ng-required="true"/>
+                </label>
+                <p class="error" ng-show="myform.name.$invalid && myform.name.$touched">
+                    Please enter valid Card name
+                </p>
+
+                <label class="item item-input item-stacked-label"
+                       ng-class="{'red-bottom': myform.amount.$invalid && myform.amount.$touched,
+                    'green-bottom': myform.amount.$valid && myform.amount.$touched}">
+                    <span class="input-label">Limit&nbsp;*</span>
+                    <input type="number"
+                           ng-model="card.budget"
+                           name="amount"
+                           ng-required="true"/>
+                </label>
+                <p class="error" ng-show="myform.amount.$invalid && myform.amount.$touched">
+                    Please enter valid budget
+                </p>
+
+                <label class="item item-input item-stacked-label"
+                       ng-class="{'red-bottom': myform.date.$invalid && myform.date.$touched,
+                    'green-bottom': myform.date.$valid && myform.date.$touched}">
+                    <span class="input-label">Due Date&nbsp;*</span>
+                    <input type="date"
+                           ng-model="card.dueDate"
+                           value="{{card.dueDate | date:'yyyy-MM-dd'}}"
+                           name="date"
+                           ng-required="true"/>
+                </label>
+                <p class="error" ng-show="myform.date.$invalid && myform.date.$touched">
+                    Please select valid due date
+                </p>
+
+                <br>
+                <div class="text-center">
+                    <button class="button button-dark submit-button"
+                            ng-disabled="myform.$invalid"
+                            ng-click="addCard(card)">Save
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </ion-content>
 </ion-modal-view>

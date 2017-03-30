@@ -2,7 +2,7 @@ angular
     .module('app.sideCategories')
     .controller('SideCategoriesCtrl', SideCategoriesCtrl);
 
-function SideCategoriesCtrl($ionicModal, $q, $scope, DefaultCategories, userCategories, Transactions, $timeout) {
+function SideCategoriesCtrl($ionicModal, $q, $scope, DefaultCategories, userCategories, Transactions, $timeout, $ionicHistory) {
     var vm = this;
     var CATEGORY = 'CATEGORY';
 
@@ -96,7 +96,9 @@ function SideCategoriesCtrl($ionicModal, $q, $scope, DefaultCategories, userCate
         else {
             $scope.category = {}
         }
-        $scope.modal.show($scope.category);
+        $ionicHistory.clearCache().then(function () {
+            $scope.modal.show($scope.category);
+        });
     }
 
 }

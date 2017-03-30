@@ -96,7 +96,7 @@ $dark-item: #f0f0f0 !default;
     }
 }
 
-.add-transaction {
+.add-transaction, .add-category, .add-card, .add-utility {
     label {
         border-top-width: 0;
         border-left-width: 0;
@@ -202,7 +202,3 @@ $dark-item: #f0f0f0 !default;
 .background-transparent, .background-transparent .activated {
     background: transparent;
 }
-
-
-
-
