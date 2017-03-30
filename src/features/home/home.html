@@ -5,7 +5,7 @@
             <ion-nav-bar class="bar-dark" align-title="center">
                 <ion-nav-back-button></ion-nav-back-button>
                 <ion-nav-buttons side="left">
-                    <button class="button button-icon button-clear ion-navicon"
+                    <button class="button button-icon button-clear ion-gear-a"
                             menu-toggle="left">
                     </button>
                 </ion-nav-buttons>
@@ -78,16 +78,16 @@
             <ion-content style="top:125px;">
                 <ion-list>
                     <ion-item menu-close ui-sref="app.home.category">
-                        Categories
+                        <i class="icon ion-briefcase settings-icon"></i> Categories
                     </ion-item>
                     <ion-item menu-close ui-sref="app.home.cards">
-                        Credit Cards
+                        <i class="icon ion-card settings-icon"></i> Credit Cards
                     </ion-item>
                     <ion-item menu-close ui-sref="app.home.utilities">
-                        Utilities
+                        <i class="icon ion-ios-home settings-icon"></i> Utilities
                     </ion-item>
                     <ion-item ng-click="vm.logout()" style="color: red;">
-                        Log Out
+                        <i class="icon ion-ios-person settings-icon"></i> Log Out
                     </ion-item>
                 </ion-list>
             </ion-content>

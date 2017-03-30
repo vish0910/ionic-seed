@@ -47,6 +47,10 @@ $dark-item: #f0f0f0 !default;
         margin-left: auto;
         margin-right: auto;
     }
+    .settings-icon {
+        font-size: 20px;
+        margin-right: 10px;
+    }
 }
 
 .side-user {
@@ -198,3 +202,7 @@ $dark-item: #f0f0f0 !default;
 .background-transparent, .background-transparent .activated {
     background: transparent;
 }
+
+
+
+
