@@ -6,7 +6,10 @@
             <button class="button" ng-click="remindersVm.getNotificationObj()">All noti body</button>
         </div>
         <ion-list class="svs-grid list" can-swipe="true">
+            <h4 style="margin-top: 30px;" ng-if="!remindersVm.reminders.length" class="textCenter">No reminders are
+                added</h4>
             <ion-item class="item svs-item"
+                      ng-if="remindersVm.reminders.length"
                       ng-repeat="item in remindersVm.reminders | orderBy:'remainingDays' track by $index"
                       ng-class-odd="'dark-item'" on-hold="remindersVm.openReminderPopover($event, item)">
                 <div class="row no-left-margin">

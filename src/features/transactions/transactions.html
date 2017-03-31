@@ -1,5 +1,7 @@
 <ion-view cache-view="false" view-title="Transactions" class="transactions-page">
     <ion-content scroll="true">
+        <h4 style="margin-top: 30px;" ng-if="!transactionsVm.data.length" class="textCenter">No transactions are
+            added</h4>
         <svs-grid ng-if="transactionsVm.data.length" data = "transactionsVm.data" sort-by="'-date'"></svs-grid>
     </ion-content>
 </ion-view>
