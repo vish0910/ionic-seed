@@ -11,7 +11,7 @@
                            name="amount"
                            ng-required="true"/>
                 </label>
-                <p class="error" ng-show="myform.amount.$invalid && myform.amount.$touched">
+                <p class="error" ng-if="myform.amount.$invalid && myform.amount.$touched">
                     Please enter valid amount
                 </p>
 
@@ -24,7 +24,7 @@
                            name="description"
                            ng-required="true"/>
                 </label>
-                <p class="error" ng-show="myform.description.$invalid && myform.description.$touched">
+                <p class="error" ng-if="myform.description.$invalid && myform.description.$touched">
                     Please Enter valid description
                 </p>
 
@@ -39,7 +39,7 @@
                            name="date"
                            ng-required="true"/>
                 </label>
-                <p class="error" ng-show="myform.date.$invalid && myform.date.$touched">
+                <p class="error" ng-if="myform.date.$invalid && myform.date.$touched">
                     Please select valid date
                 </p>
                 <br>

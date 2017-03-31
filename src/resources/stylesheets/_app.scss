@@ -1,8 +1,13 @@
 $dark-item: #f0f0f0 !default;
 
+.card {
+    margin-left: 20px;
+    margin-right: 20px;
+    box-shadow: 0 1px 3px #3f7eaf
+}
 
 .card-title{
-    background: #145486;
+    background: #3f7eaf;
     color: #fff;
 }
 .app {
