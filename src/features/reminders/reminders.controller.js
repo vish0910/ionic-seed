@@ -10,7 +10,6 @@
                                  $ionicModal,
                                  $ionicPopover,
                                  Cards,
-                                 svsGetDataService,
                                  svsNotificationService,
                                  userUtilities,
                                  $firebaseArray,
@@ -52,9 +51,6 @@
         }
 
         function calculateRemainingDays() {
-            console.log(Cards);
-            console.log(userUtilities);
-            console.log(data);
             _.forEach(data, function (reminder) {
                 reminder.remainingDays = moment(reminder.dueDate).diff(moment(new Date().toISOString()), 'days')
             });
@@ -139,31 +135,19 @@
         }
 
         function saveReminderProperties(item) {
-            console.log('save reminder item');
-
             var Items = (item.type == 'CARD') ? Cards : userUtilities;
-
             var itemToBeUpdated = Items.$getRecord(item.$id) || {};
-
 
             itemToBeUpdated.notification = item.notification;
             itemToBeUpdated.recurring = item.recurring;
-            console.log(Items);
-            console.log(item);
             updateItem(itemToBeUpdated, Items);
         }
 
         function reminderConfigChanged(item) {
-            console.log("New item vvvv");
-            console.log(item);
-            console.log("Old item vvvv");
-            console.log(oldReminder);
             return (item.notification != _.get(oldReminder, 'notification') || item.recurring != _.get(oldReminder, 'recurring'))
         }
 
         function dismissReminder(item) {
-            console.log("called");
-            console.log(item);
             //Paid is set to true Open Transaction recorder
             //todo open modal only for card bills
             if (item.type == 'CARD') {
@@ -198,23 +182,11 @@
         }
 
         function addPaymentTransaction(item) {
-            //var transaction = {
-            //    amount: -(item.amountPaid),
-            //    date: new Date().toISOString(),
-            //    category: PAYMENT_CATEGORY,
-            //    card: item.name
-            //};
-            //
-            //console.log(item);
-            //console.log(transaction);
-            //svsGetDataService.putTransaction(transaction);
-
-            //TODO id of payement. Optional.
             var transaction = {
                 category: {name: PAYMENT_CATEGORY, id: PAYMENT_CATEGORY},
                 card: {name: item.name, id: item.$id},
                 amount: -(remindersVm.amountPaid),
-                date: item.dueDate,
+                date: new Date().toISOString(),
                 description: 'Bill Paid'
             };
 
