@@ -150,6 +150,16 @@ $dark-item: #f0f0f0 !default;
 }
 
 .transactions-page, .reminder-page {
+    .developer-button {
+        position: fixed;
+        top: 4px;
+        left: 0;
+        min-height: 20px;
+        height: 10px;
+        z-index: 999;
+        background: white;
+    }
+
     .svs-grid {
         .svs-item {
             .no-left-margin {
