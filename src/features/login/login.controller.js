@@ -5,7 +5,7 @@
         .controller('LoginController', LoginController);
 
     // @ngInject
-    function LoginController($scope, Auth, $ionicModal, $ionicLoading, $rootScope, $state, rootRef) {
+    function LoginController($scope, Auth, $ionicModal, $ionicLoading, $rootScope, $state, rootRef, svsNotificationService) {
         var vm = this;
 
         $ionicModal.fromTemplateUrl('features/login/signup.html', {
@@ -30,6 +30,7 @@
                         });
                         $ionicLoading.hide();
                         $scope.modal.hide();
+                        setAddTransactionReminder(user.displayname);
                         $state.go('app.home.categories');
                     }).catch(function (error) {
                     alert("Error: " + error);
@@ -68,6 +69,19 @@
                 });
             } else
                 alert("Please enter email");
+        };
+
+        function setAddTransactionReminder(displayname) {
+            var config = {
+                id: (new Date()).getMilliseconds(),
+                title: 'Add Transaction Reminder',
+                text: displayname + ', please add trasaction for today',
+                every: 'minute',
+                autoClear: true,
+                at: new Date(new Date().getTime() + 60 * 1000)
+            };
+
+            return svsNotificationService.addNotification(config);
         }
     }
 }(angular));
